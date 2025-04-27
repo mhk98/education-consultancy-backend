@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull:true
             },
 
+            twelvethBoard: {
+                type: DataTypes.TEXT,
+                allowNull:true
+            },
+
             twelvethInstitution: {
                 type: DataTypes.TEXT,
                 allowNull:true
@@ -39,6 +44,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull:true
             },
 
+            tenthBoard: {
+                type: DataTypes.TEXT,
+                allowNull:true
+            },
+
             tenthInstitution: {
                 type: DataTypes.TEXT,
                 allowNull:true
@@ -48,14 +58,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.TEXT,
                 allowNull:true
             },
-            ieltsWaiver: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-            ieltsMOI: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
+           
         }
     )
 

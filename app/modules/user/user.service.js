@@ -6,6 +6,8 @@ const User = db.user;
 const Profile = db.profile;
 const Application = db.application;
 const Document = db.document;
+const Academic = db.academic;
+const Tests = db.tests;
 
 const bcrypt = require("bcryptjs");
 const ApiError = require("../../../error/ApiError");
@@ -69,6 +71,8 @@ const register = async (data) => {
     await Profile.create({user_id:result.id})
     // await Application.create({user_id:result.id})
     await Document.create({user_id:result.id})
+    await Academic.create({user_id:result.id})
+    await Tests.create({user_id:result.id})
 
     return result
 };

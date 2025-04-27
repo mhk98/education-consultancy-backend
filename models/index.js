@@ -9,6 +9,7 @@ db.profile = require("../app/modules/profile/profile.model")(db.sequelize, DataT
 db.application = require("../app/modules/application/application.model")(db.sequelize, DataTypes);
 db.document = require("../app/modules/document/document.model")(db.sequelize, DataTypes);
 db.academic = require("../app/modules/academic/academic.model")(db.sequelize, DataTypes);
+db.tests = require("../app/modules/tests/tests.model")(db.sequelize, DataTypes);
 
 
 //Realtion for product table
@@ -24,6 +25,9 @@ db.document.belongsTo(db.user, { foreignKey: "user_id" });
 
 db.user.hasMany(db.academic, { foreignKey: "user_id" });
 db.academic.belongsTo(db.user, { foreignKey: "user_id" });
+
+db.user.hasMany(db.tests, { foreignKey: "user_id" });
+db.tests.belongsTo(db.user, { foreignKey: "user_id" });
 
 
 // Sync the database

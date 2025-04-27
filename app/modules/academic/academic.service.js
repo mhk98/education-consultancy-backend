@@ -2,12 +2,12 @@ const { Op, where } = require("sequelize"); // Ensure Op is imported
 const paginationHelpers = require("../../../helpers/paginationHelper");
 const db = require("../../../models");
 const ApiError = require("../../../error/ApiError");
-const Application = db.application;
+const Academic = db.academic;
 
 
 const insertIntoDB = async (data) => {
 
-  const result = await Application.create(data);
+  const result = await Academic.create(data);
 
   console.log('Application', result)
   return result
@@ -17,7 +17,7 @@ const insertIntoDB = async (data) => {
 
 const getAllFromDB = async () => {
   
-    const result = await Application.findAll()
+    const result = await Academic.findAll()
   
     return result
   };
@@ -25,7 +25,8 @@ const getAllFromDB = async () => {
   
   const getDataById = async (id) => {
   
-    const result = await Profile.findOne(
+    console.log("dataid", id)
+    const result = await Academic.findOne(
      {
       where:{
         user_id:id
@@ -39,7 +40,7 @@ const getAllFromDB = async () => {
 
   const deleteIdFromDB = async (id) => {
   
-    const result = await Application.destroy(
+    const result = await Academic.destroy(
       {
         where:{
           id:id
@@ -53,25 +54,26 @@ const getAllFromDB = async () => {
   
   const updateOneFromDB = async (id, payload) => {
 
-    const {twelvethStartDate, twelvethEndDate, twelvethInstitution, twelvethLocation, 
-      tenthStartDate, tenthEndDate, tenthInstitution, tenthLocation, iteltsWaiver, ieltsMOI} = payload;
+    const {twelvethStartDate, twelvethEndDate, twelvethBoard, twelvethInstitution, twelvethLocation, 
+      tenthStartDate, tenthEndDate, tenthBoard, tenthInstitution, tenthLocation} = payload;
 
     const data = {
       twelvethStartDate: twelvethStartDate === "" ? undefined : twelvethStartDate,
       twelvethEndDate: twelvethEndDate === "" ? undefined : twelvethEndDate,
+      twelvethEndDate: twelvethEndDate === "" ? undefined : twelvethEndDate,
+      twelvethBoard: twelvethBoard === "" ? undefined : twelvethBoard,
       twelvethInstitution: twelvethInstitution === "" ? undefined : twelvethInstitution,
       twelvethLocation: twelvethLocation === "" ? undefined : twelvethLocation,
       tenthStartDate: tenthStartDate === "" ? undefined : tenthStartDate,
       tenthEndDate: tenthEndDate === "" ? undefined : tenthEndDate,
+      tenthBoard: tenthBoard === "" ? undefined : tenthBoard,
       tenthInstitution: tenthInstitution === "" ? undefined : tenthInstitution,
       tenthLocation: tenthLocation === "" ? undefined : tenthLocation,
-      ieltsWaiver: iteltsWaiver === "" ? undefined : iteltsWaiver,
-      ieltsMOI: ieltsMOI === "" ? undefined : ieltsMOI,
     };
 
     console.log("academic", data)
     
-    const result = await Application.update(data,{
+    const result = await Academic.update(data,{
       where:{
         user_id:id
       }

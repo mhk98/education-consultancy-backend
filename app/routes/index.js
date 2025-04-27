@@ -3,6 +3,7 @@ const UserRoutes = require('../modules/user/user.routes');
 const ProfileRoutes = require('../modules/profile/profile.routes');
 const ApplicationRoutes = require('../modules/application/application.routes');
 const AcademicRoutes = require('../modules/academic/academic.routes');
+const TestsRoutes = require('../modules/tests/tests.routes');
 
 
 
@@ -28,6 +29,11 @@ const moduleRoutes = [
   {
     path: "/academic",
     route: AcademicRoutes
+  },
+
+  {
+    path: "/tests",
+    route: TestsRoutes
   },
   
   

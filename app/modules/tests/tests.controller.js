@@ -1,14 +1,14 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
 const pick = require("../../../shared/pick");
-const ApplicationService = require("./academic.service");
+const TestsService = require("./tests.service");
 const { where } = require("sequelize");
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
 
 
-  const result = await ApplicationService.insertIntoDB(req.body);
+  const result = await TestsService.insertIntoDB(req.body);
  
   sendResponse(res, {
       statusCode: 200,
@@ -21,7 +21,7 @@ const insertIntoDB = catchAsync(async (req, res) => {
 
 const getAllFromDB = catchAsync(async (req, res) => {
 
-  const result = await ApplicationService.getAllFromDB();
+  const result = await TestsService.getAllFromDB();
   sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -34,7 +34,7 @@ const getDataById = catchAsync(async (req, res) => {
 
   const {id} = req.params;
   
-  const result = await ApplicationService.getDataById(id);
+  const result = await TestsService.getDataById(id);
   sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -46,7 +46,7 @@ const getDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-      const result = await ApplicationService.updateOneFromDB(id, req.body);
+      const result = await TestsService.updateOneFromDB(id, req.body);
       sendResponse(res, {
           statusCode: 200,
           success: true,
@@ -60,7 +60,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
         const {id} = req.params;
         console.log('deleteId',id)
     
-      const result = await ApplicationService.deleteIdFromDB(id);
+      const result = await TestsService.deleteIdFromDB(id);
       sendResponse(res, {
           statusCode: 200,
           success: true,
@@ -69,7 +69,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
       })
     })
 
- const AcademicController = {
+ const TestsController = {
   getAllFromDB,
   insertIntoDB,
   deleteIdFromDB,
@@ -77,4 +77,4 @@ const updateOneFromDB = catchAsync(async (req, res) => {
   getDataById
 }
 
-module.exports = AcademicController;
+module.exports = TestsController;
