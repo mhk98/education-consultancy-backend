@@ -12,7 +12,7 @@ const insertIntoDB = catchAsync(async (req, res) => {
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Tests successfully created!!",
+      message: "Documents successfully created!!",
       data: result
   })
 })
@@ -24,7 +24,7 @@ const getAllFromDB = catchAsync(async (req, res) => {
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Tests data fetch!!",
+      message: "Documents data fetch!!",
       data: result
   })
 })
@@ -37,7 +37,7 @@ const getDataById = catchAsync(async (req, res) => {
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Tests data fetch!!",
+      message: "Documents data fetch!!",
       data: result
   })
 })
@@ -45,11 +45,11 @@ const getDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-      const result = await DocumentService.updateOneFromDB(id, req.body);
+      const result = await DocumentService.updateOneFromDB(id, req.files);
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Tests update successfully!!",
+          message: "Documents update successfully!!",
           data: result
       })
     })
@@ -63,7 +63,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Tests delete successfully!!",
+          message: "Documents delete successfully!!",
           data: result
       })
     })

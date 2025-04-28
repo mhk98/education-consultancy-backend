@@ -7,9 +7,9 @@ const Document = db.document;
 
 const insertIntoDB = async (data) => {
 
-  const result = await Tests.create(data);
+  const result = await Document.create(data);
 
-  console.log('Tests', result)
+  console.log('Document', result)
   return result
 };
 
@@ -17,7 +17,7 @@ const insertIntoDB = async (data) => {
 
 const getAllFromDB = async () => {
   
-    const result = await Tests.findAll()
+    const result = await Document.findAll()
   
     return result
   };
@@ -26,7 +26,7 @@ const getAllFromDB = async () => {
   const getDataById = async (id) => {
   
     console.log("dataid", id)
-    const result = await Tests.findOne(
+    const result = await Document.findOne(
      {
       where:{
         user_id:id
@@ -40,7 +40,7 @@ const getAllFromDB = async () => {
 
   const deleteIdFromDB = async (id) => {
   
-    const result = await Tests.destroy(
+    const result = await Document.destroy(
       {
         where:{
           id:id
@@ -54,23 +54,21 @@ const getAllFromDB = async () => {
   
   const updateOneFromDB = async (id, payload) => {
 
-    const {examinationDate, waiver, overallScore, listening, reading, writing, speaking, trfNo} = payload;
+    const {tenthMarksheet, tenthCertificate, twelveMarksheet, twelveCertificate, passport, essay, instructionLetter} = payload;
 
     const data = {
-      examinationDate: examinationDate === "" ? undefined : examinationDate,
-      waiver: waiver === "" ? undefined : waiver,
-      overallScore: overallScore === "" ? undefined : overallScore,
-      listening: listening === "" ? undefined : listening,
-      reading: reading === "" ? undefined : reading,
-      writing: writing === "" ? undefined : writing,
-      speaking: speaking === "" ? undefined : speaking,
-      trfNo: trfNo === "" ? undefined : trfNo,
-     
+      tenthMarksheet: tenthMarksheet && tenthMarksheet[0].path,
+      tenthCertificate: tenthCertificate && tenthCertificate[0].path,
+      twelveMarksheet: twelveMarksheet && twelveMarksheet[0].path,
+      twelveCertificate: twelveCertificate && twelveCertificate[0].path,
+      passport: passport && passport[0].path,
+      essay: essay && essay[0].path,
+      instructionLetter: instructionLetter && instructionLetter[0].path,
     };
 
-    console.log("Tests", data)
+    console.log("document", data)
     
-    const result = await Tests.update(data,{
+    const result = await Document.update(data,{
       where:{
         user_id:id
       }

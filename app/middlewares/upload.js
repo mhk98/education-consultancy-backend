@@ -101,7 +101,7 @@ const seventhUpload = multer({
   { name: "tenthMarksheet", maxCount: 1 },
   { name: "tenthCertificate", maxCount: 1 },
   { name: "twelveMarksheet", maxCount: 1 },
-  { name: "twelveCertiface", maxCount: 1 },
+  { name: "twelveCertificate", maxCount: 1 },
   { name: "passport", maxCount: 1 },
   { name: "essay", maxCount: 1 },
   { name: "instructionLetter", maxCount: 1 },

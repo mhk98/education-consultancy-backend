@@ -38,7 +38,7 @@ const moduleRoutes = [
   },
 
   {
-    path: "/tests",
+    path: "/document",
     route: DocumentRoutes
   },
   
