@@ -1,8 +1,7 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
-const pick = require("../../../shared/pick");
 const TestsService = require("./tests.service");
-const { where } = require("sequelize");
+
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
@@ -13,7 +12,7 @@ const insertIntoDB = catchAsync(async (req, res) => {
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Application successfully created!!",
+      message: "Tests successfully created!!",
       data: result
   })
 })
@@ -25,7 +24,7 @@ const getAllFromDB = catchAsync(async (req, res) => {
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Application data fetch!!",
+      message: "Tests data fetch!!",
       data: result
   })
 })
@@ -38,7 +37,7 @@ const getDataById = catchAsync(async (req, res) => {
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Application data fetch!!",
+      message: "Tests data fetch!!",
       data: result
   })
 })
@@ -50,7 +49,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Application update successfully!!",
+          message: "Tests update successfully!!",
           data: result
       })
     })
@@ -64,7 +63,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Application delete successfully!!",
+          message: "Tests delete successfully!!",
           data: result
       })
     })

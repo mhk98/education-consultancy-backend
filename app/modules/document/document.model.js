@@ -9,11 +9,19 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey:true,
                 allowNull:false
             },
-            tenth: {
+            tenthMarksheet: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            twelve: {
+            tenthCertificate: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            twelveMarksheet: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            twelveCertificate: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
@@ -21,7 +29,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            recommendationLetter : {
+            essay: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            instructionLetter : {
                 type: DataTypes.STRING,
                 allowNull:true
             },

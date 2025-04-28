@@ -10,6 +10,7 @@ db.application = require("../app/modules/application/application.model")(db.sequ
 db.document = require("../app/modules/document/document.model")(db.sequelize, DataTypes);
 db.academic = require("../app/modules/academic/academic.model")(db.sequelize, DataTypes);
 db.tests = require("../app/modules/tests/tests.model")(db.sequelize, DataTypes);
+db.document = require("../app/modules/document/document.model")(db.sequelize, DataTypes);
 
 
 //Realtion for product table

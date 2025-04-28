@@ -4,6 +4,7 @@ const ProfileRoutes = require('../modules/profile/profile.routes');
 const ApplicationRoutes = require('../modules/application/application.routes');
 const AcademicRoutes = require('../modules/academic/academic.routes');
 const TestsRoutes = require('../modules/tests/tests.routes');
+const DocumentRoutes = require('../modules/document/document.routes');
 
 
 
@@ -34,6 +35,11 @@ const moduleRoutes = [
   {
     path: "/tests",
     route: TestsRoutes
+  },
+
+  {
+    path: "/tests",
+    route: DocumentRoutes
   },
   
   

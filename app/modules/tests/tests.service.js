@@ -68,7 +68,7 @@ const getAllFromDB = async () => {
      
     };
 
-    console.log("academic", data)
+    console.log("Tests", data)
     
     const result = await Tests.update(data,{
       where:{

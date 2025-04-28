@@ -93,15 +93,19 @@ const uploadSingle = multer({
 }).single("image"); // Use "file" as the field name for PDF uploads
 
 
-// const tripleUpload = multer({
-//   storage: storage,
-//   limits: { fileSize: 5000000 }, // 5 MB limit
-//   fileFilter: fileFilter,
-// }).fields([
-//   { name: "image1", maxCount: 1 },
-//   { name: "image2", maxCount: 1 },
-//   { name: "image3", maxCount: 1 },
-// ]);
+const seventhUpload = multer({
+  storage: storage,
+  limits: { fileSize: 5000000 }, // 5 MB limit
+  fileFilter: fileFilter,
+}).fields([
+  { name: "tenthMarksheet", maxCount: 1 },
+  { name: "tenthCertificate", maxCount: 1 },
+  { name: "twelveMarksheet", maxCount: 1 },
+  { name: "twelveCertiface", maxCount: 1 },
+  { name: "passport", maxCount: 1 },
+  { name: "essay", maxCount: 1 },
+  { name: "instructionLetter", maxCount: 1 },
+]);
 
 const uploadMultiple = multer({
   storage,
@@ -112,4 +116,5 @@ const uploadMultiple = multer({
 module.exports = {
   uploadSingle,
   uploadMultiple,
+  seventhUpload
 };

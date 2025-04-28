@@ -73,6 +73,7 @@ const register = async (data) => {
     await Document.create({user_id:result.id})
     await Academic.create({user_id:result.id})
     await Tests.create({user_id:result.id})
+    await Document.create({user_id:result.id})
 
     return result
 };
