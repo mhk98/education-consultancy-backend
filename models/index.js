@@ -11,6 +11,8 @@ db.document = require("../app/modules/document/document.model")(db.sequelize, Da
 db.academic = require("../app/modules/academic/academic.model")(db.sequelize, DataTypes);
 db.tests = require("../app/modules/tests/tests.model")(db.sequelize, DataTypes);
 db.document = require("../app/modules/document/document.model")(db.sequelize, DataTypes);
+db.studentComment = require("../app/modules/studentComment/studentComment.model")(db.sequelize, DataTypes);
+db.studentReply = require("../app/modules/studentReply/studentReply.model")(db.sequelize, DataTypes);
 
 
 //Realtion for product table
@@ -30,10 +32,27 @@ db.academic.belongsTo(db.user, { foreignKey: "user_id" });
 db.user.hasMany(db.tests, { foreignKey: "user_id" });
 db.tests.belongsTo(db.user, { foreignKey: "user_id" });
 
+db.user.hasMany(db.studentComment, { foreignKey: "user_id" });
+db.studentComment.belongsTo(db.user, { foreignKey: "user_id" });
+
+db.application.hasMany(db.studentComment, { foreignKey: "application_id" });
+db.studentComment.belongsTo(db.application, { foreignKey: "application_id" });
+
+db.user.hasMany(db.studentReply, { foreignKey: "user_id" });
+db.studentReply.belongsTo(db.user, { foreignKey: "user_id" });
+
+db.application.hasMany(db.studentReply, { foreignKey: "application_id" });
+db.studentReply.belongsTo(db.application, { foreignKey: "application_id" });
+
+db.studentComment.hasMany(db.studentReply, { foreignKey: "studentComment_id" });
+db.studentReply.belongsTo(db.studentComment, { foreignKey: "studentComment_id" });
+
+
+
 
 // Sync the database
 db.sequelize
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     console.log("Connection re-synced successfully");
   })
