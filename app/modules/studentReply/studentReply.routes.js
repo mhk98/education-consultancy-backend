@@ -5,10 +5,10 @@ const StudentReplyController = require("./studentReply.controller");
 const router = require("express").Router();
 
 router.post("/create",  StudentReplyController.insertIntoDB);
-router.get("/", StudentReplyController.getAllFromDB);
-router.get("/:id", StudentReplyController.getDataById);
-router.delete("/:id", StudentReplyController.deleteIdFromDB);
-router.put("/:id", StudentReplyController.updateOneFromDB);
+// router.get("/", StudentReplyController.getAllFromDB);
+// router.get("/:id", StudentReplyController.getDataById);
+// router.delete("/:id", StudentReplyController.deleteIdFromDB);
+// router.put("/:id", StudentReplyController.updateOneFromDB);
 
 const StudentReplyRoutes = router;
 module.exports =  StudentReplyRoutes ;

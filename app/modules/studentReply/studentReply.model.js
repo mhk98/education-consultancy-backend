@@ -1,21 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-
-    const StudentReply = sequelize.define(
-        "StudentReply",
-        {
-            id: {
-                type: DataTypes.INTEGER,
-                autoIncrement:true,
-                primaryKey:true,
-                allowNull:false
-            },
-
-            reply: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-        }
-    )
-
+    const StudentReply = sequelize.define("StudentReply", {
+        id: {
+        type: DataTypes.INTEGER(10),
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: true,
+          },
+      text: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+    });
+  
     return StudentReply;
-}
+  };
+  

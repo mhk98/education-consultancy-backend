@@ -5,6 +5,8 @@ const ApplicationRoutes = require('../modules/application/application.routes');
 const AcademicRoutes = require('../modules/academic/academic.routes');
 const TestsRoutes = require('../modules/tests/tests.routes');
 const DocumentRoutes = require('../modules/document/document.routes');
+const StudentCommentRoutes = require('../modules/studentComment/studentComment.routes');
+const StudentReplyRoutes = require('../modules/studentReply/studentReply.routes');
 
 
 
@@ -40,6 +42,16 @@ const moduleRoutes = [
   {
     path: "/document",
     route: DocumentRoutes
+  },
+
+  {
+    path: "/studentComment",
+    route: StudentCommentRoutes
+  },
+
+  {
+    path: "/studentReply",
+    route: StudentReplyRoutes
   },
   
   

@@ -9,7 +9,7 @@ const insertIntoDB = async (data) => {
 
   const result = await StudentReply.create(data);
 
-  console.log('Application', result)
+  console.log('StudentReply', result)
   return result
 };
 
