@@ -7,6 +7,7 @@ const UserService = require("./user.service");
 
 
 const login = catchAsync(async (req, res) => {
+  console.log(req.body);
 
   const result = await UserService.login(req.body);
 

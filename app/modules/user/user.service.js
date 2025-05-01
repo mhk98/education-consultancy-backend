@@ -17,7 +17,7 @@ const ApiError = require("../../../error/ApiError");
 const login = async (data) => {
 
   const { Email, Password } = data;
-  // console.log(buyerData);
+  console.log(data);
 
   // Validate request data
   if (!Email || !Password) {
