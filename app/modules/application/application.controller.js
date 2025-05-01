@@ -1,7 +1,7 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
 const pick = require("../../../shared/pick");
-const ApplicationService = require("./Application.service");
+const ApplicationService = require("./application.service");
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
