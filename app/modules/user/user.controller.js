@@ -29,23 +29,33 @@ const login = catchAsync(async (req, res) => {
 })
 
 const register = catchAsync(async (req, res) => {
-  const {FirstName, LastName, Email, Password, Role, Phone } = req.body;
-// console.log(req.body)
-const data = {
-  FirstName, LastName,
-  Email, Password, Role, Phone,
-  image: req.file === undefined ? undefined : req.file.path,
-}
+  const { FirstName, LastName, Email, Password, Role, Phone } = req.body;
 
-console.log("Registerdata", data)
+  const validRoles = ["student", "employee", "admin", "superAdmin"];
+  const roleToInsert = validRoles.includes(Role) ? Role : 'student';
+
+  const data = {
+    FirstName,
+    LastName,
+    Email,
+    Password,
+    Role: roleToInsert,
+    Phone,
+    image: req.file ? req.file.path : undefined,
+  };
+
+  console.log("Registerdata", data);
+
   const result = await UserService.register(data);
+
   sendResponse(res, {
-      statusCode: 200,
-      success: true,
-      message: "User register successfully!!",
-      data: result
-  })
-})
+    statusCode: 200,
+    success: true,
+    message: "User registered successfully!!",
+    data: result,
+  });
+});
+
 
 
 const getAllUserFromDB = catchAsync(async (req, res) => {
