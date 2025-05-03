@@ -25,6 +25,18 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true
             },
+            program: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            priority: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            country: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
          
      
   

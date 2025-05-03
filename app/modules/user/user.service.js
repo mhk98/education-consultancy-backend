@@ -113,7 +113,7 @@ const getUserById = async (id) => {
   
   const result = await User.findOne({
     where:{
-      Id:id
+      id:id
     }
   })
 
