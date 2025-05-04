@@ -1,66 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
+    const KCComment = sequelize.define("KCComment", {
+        id: {
+          type: DataTypes.INTEGER(10),
+          primaryKey: true,
+          autoIncrement: true,
+          allowNull: true,
+        },
+        text: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },
+        type: {
+          type: DataTypes.STRING,  // This field will store the tab value (e.g., "kc", "student")
+          allowNull: false,
+        },
+      });
+      
 
-    const Academic = sequelize.define(
-        "Academic",
-        {
-            id: {
-                type: DataTypes.INTEGER,
-                autoIncrement:true,
-                primaryKey:true,
-                allowNull:false
-            },
-
-            twelvethStartDate: {
-                type: DataTypes.DATEONLY,
-                allowNull:true
-            },
-
-            twelvethEndDate: {
-                type: DataTypes.DATEONLY,
-                allowNull:true
-            },
-
-            twelvethBoard: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-
-            twelvethInstitution: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-
-            twelvethLocation: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-            tenthStartDate: {
-                type: DataTypes.DATEONLY,
-                allowNull:true
-            },
-
-            tenthEndDate: {
-                type: DataTypes.DATEONLY,
-                allowNull:true
-            },
-
-            tenthBoard: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-
-            tenthInstitution: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-
-            tenthLocation: {
-                type: DataTypes.TEXT,
-                allowNull:true
-            },
-           
-        }
-    )
-
-    return Academic;
-}
+  
+    return KCComment;
+  };
+  

@@ -1,14 +1,9 @@
-const { ENUM_USER_ROLE } = require("../../enums/user");
-const auth = require("../../middlewares/auth");
-const { uploadSingle } = require("../../middlewares/upload");
-const AcademicController = require("./academic.controller");
+const KCCommentController = require("./kcComment.controller");
 const router = require("express").Router();
 
-router.post("/create",  AcademicController.insertIntoDB);
-router.get("/", AcademicController.getAllFromDB);
-router.get("/:id", AcademicController.getDataById);
-router.delete("/:id", AcademicController.deleteIdFromDB);
-router.put("/:id", AcademicController.updateOneFromDB);
+router.post("/create",  KCCommentController.insertIntoDB);
+router.get("/:application_id", KCCommentController.getDataById);
 
-const AcademicRoutes = router;
-module.exports =  AcademicRoutes ;
+
+const KCCommentRoutes = router;
+module.exports =  KCCommentRoutes ;

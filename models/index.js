@@ -88,6 +88,8 @@ db.tests = require("../app/modules/tests/tests.model")(db.sequelize, DataTypes);
 db.document = require("../app/modules/document/document.model")(db.sequelize, DataTypes);
 db.studentComment = require("../app/modules/studentComment/studentComment.model")(db.sequelize, DataTypes);
 db.studentReply = require("../app/modules/studentReply/studentReply.model")(db.sequelize, DataTypes);
+db.kcComment = require("../app/modules/kcComment/kcComment.model")(db.sequelize, DataTypes);
+db.kcReply = require("../app/modules/kcReply/kcReply.model")(db.sequelize, DataTypes);
 
 // ✅ StudentComment - StudentReply association (WITH correct alias)
 db.studentComment.hasMany(db.studentReply, {
@@ -97,6 +99,16 @@ db.studentComment.hasMany(db.studentReply, {
 db.studentReply.belongsTo(db.studentComment, {
   foreignKey: "studentComment_id",
   as: "studentComment",
+});
+
+
+db.kcComment.hasMany(db.kcReply, {
+  foreignKey: "kcComment_id",
+  as: "kcReplies", // Must match the alias used in your include
+});
+db.kcReply.belongsTo(db.kcComment, {
+  foreignKey: "kcComment_id",
+  as: "kcComment",
 });
 
 // 🔁 User associations
@@ -124,6 +136,16 @@ db.studentReply.belongsTo(db.user, { foreignKey: "user_id" });
 // 🔁 Application associations
 db.application.hasMany(db.studentComment, { foreignKey: "application_id" });
 db.studentComment.belongsTo(db.application, { foreignKey: "application_id" });
+
+db.user.hasMany(db.kcComment, { foreignKey: "user_id" });
+db.kcComment.belongsTo(db.user, { foreignKey: "user_id" });
+
+db.user.hasMany(db.kcReply, { foreignKey: "user_id" });
+db.kcReply.belongsTo(db.user, { foreignKey: "user_id" });
+
+// 🔁 Application associations
+db.application.hasMany(db.kcComment, { foreignKey: "application_id" });
+db.kcComment.belongsTo(db.application, { foreignKey: "application_id" });
 
 // ❌ Removed redundant duplicate `studentComment` - `studentReply` mapping
 // (already defined above)

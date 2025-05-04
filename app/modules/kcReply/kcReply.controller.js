@@ -1,19 +1,19 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
 const pick = require("../../../shared/pick");
-const StudentReplyService = require("./studentReply.service");
-const { where } = require("sequelize");
+const KCReplyService = require("./kcReply.service");
+
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
 
 
-  const result = await StudentReplyService.insertIntoDB(req.body);
+  const result = await KCReplyService.insertIntoDB(req.body);
  
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "StudentReply successfully created!!",
+      message: "KCReply successfully created!!",
       data: result
   })
 })
@@ -21,11 +21,11 @@ const insertIntoDB = catchAsync(async (req, res) => {
 
 const getAllFromDB = catchAsync(async (req, res) => {
 
-  const result = await StudentReplyService.getAllFromDB();
+  const result = await KCReplyService.getAllFromDB();
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "StudentReply data fetch!!",
+      message: "KCReply data fetch!!",
       data: result
   })
 })
@@ -34,11 +34,11 @@ const getDataById = catchAsync(async (req, res) => {
 
   const {id} = req.params;
   
-  const result = await StudentReplyService.getDataById(id);
+  const result = await KCReplyService.getDataById(id);
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "StudentReply data fetch!!",
+      message: "KCReply data fetch!!",
       data: result
   })
 })
@@ -46,11 +46,11 @@ const getDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-      const result = await StudentReplyService.updateOneFromDB(id, req.body);
+      const result = await KCReplyService.updateOneFromDB(id, req.body);
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "StudentReply update successfully!!",
+          message: "KCReply update successfully!!",
           data: result
       })
     })
@@ -60,16 +60,16 @@ const updateOneFromDB = catchAsync(async (req, res) => {
         const {id} = req.params;
         console.log('deleteId',id)
     
-      const result = await StudentReplyService.deleteIdFromDB(id);
+      const result = await KCReplyService.deleteIdFromDB(id);
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "StudentReply delete successfully!!",
+          message: "KCReply delete successfully!!",
           data: result
       })
     })
 
- const StudentController = {
+ const kcController = {
   getAllFromDB,
   insertIntoDB,
   deleteIdFromDB,
@@ -77,4 +77,4 @@ const updateOneFromDB = catchAsync(async (req, res) => {
   getDataById
 }
 
-module.exports = StudentController;
+module.exports = kcController;

@@ -1,80 +1,36 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
-const pick = require("../../../shared/pick");
-const ApplicationService = require("./kcComment.service");
-const { where } = require("sequelize");
+const KCCommentService = require("./kcComment.service");
 
-
+// Insert new comment into the database
 const insertIntoDB = catchAsync(async (req, res) => {
+  const result = await KCCommentService.insertIntoDB(req.body);
 
-
-  const result = await ApplicationService.insertIntoDB(req.body);
- 
   sendResponse(res, {
-      statusCode: 200,
-      success: true,
-      message: "Application successfully created!!",
-      data: result
-  })
-})
+    statusCode: 200,
+    success: true,
+    message: "KCComment successfully created!!",
+    data: result,
+  });
+});
 
-
-const getAllFromDB = catchAsync(async (req, res) => {
-
-  const result = await ApplicationService.getAllFromDB();
-  sendResponse(res, {
-      statusCode: 200,
-      success: true,
-      message: "Application data fetch!!",
-      data: result
-  })
-})
-
+// Get comments by application ID
 const getDataById = catchAsync(async (req, res) => {
+  const { application_id } = req.params;
 
-  const {id} = req.params;
-  
-  const result = await ApplicationService.getDataById(id);
+  const result = await KCCommentService.getDataById(application_id);
   sendResponse(res, {
-      statusCode: 200,
-      success: true,
-      message: "Application data fetch!!",
-      data: result
-  })
-})
+    statusCode: 200,
+    success: true,
+    message: "KCComment data fetched successfully!!",
+    data: result,
+  });
+});
 
-
-const updateOneFromDB = catchAsync(async (req, res) => {
-    const {id} = req.params;
-      const result = await ApplicationService.updateOneFromDB(id, req.body);
-      sendResponse(res, {
-          statusCode: 200,
-          success: true,
-          message: "Application update successfully!!",
-          data: result
-      })
-    })
-    
-    
-    const deleteIdFromDB = catchAsync(async (req, res) => {
-        const {id} = req.params;
-        console.log('deleteId',id)
-    
-      const result = await ApplicationService.deleteIdFromDB(id);
-      sendResponse(res, {
-          statusCode: 200,
-          success: true,
-          message: "Application delete successfully!!",
-          data: result
-      })
-    })
-
- const AcademicController = {
-  getAllFromDB,
+// Export the controller functions
+const KCCommentController = {
   insertIntoDB,
-  deleteIdFromDB,
-  updateOneFromDB,
-  getDataById
-}
+  getDataById,
+};
 
-module.exports = AcademicController;
+module.exports = KCCommentController;

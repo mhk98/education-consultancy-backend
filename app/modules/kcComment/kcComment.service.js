@@ -1,96 +1,52 @@
-const { Op, where } = require("sequelize"); // Ensure Op is imported
-const paginationHelpers = require("../../../helpers/paginationHelper");
+const { Op } = require("sequelize");
 const db = require("../../../models");
-const ApiError = require("../../../error/ApiError");
-const Academic = db.academic;
+const KCComment = db.kcComment;
+const KCReply = db.kcReply;
+const User = db.user;
 
-
+// Insert new comment
 const insertIntoDB = async (data) => {
-
-  const result = await Academic.create(data);
-
-  console.log('Application', result)
-  return result
+  const result = await KCComment.create(data);
+  return result;
 };
 
+// Fetch all comments for an application (with replies and user info)
+const getDataById = async (application_id, type) => {
+  // Build the query where condition
+  const whereCondition = { application_id };
 
+  // If the "tab" type is provided, filter by it (e.g., "kc" or "student")
+  if (type) {
+    whereCondition.type = type; // Assuming your `KCComment` model has a `type` field
+  }
 
-const getAllFromDB = async () => {
-  
-    const result = await Academic.findAll()
-  
-    return result
-  };
-
-  
-  const getDataById = async (id) => {
-  
-    console.log("dataid", id)
-    const result = await Academic.findOne(
-     {
-      where:{
-        user_id:id
-      }
-     }
-  )
-  
-    return result
-  };
-
-
-  const deleteIdFromDB = async (id) => {
-  
-    const result = await Academic.destroy(
+  const result = await KCComment.findAll({
+    where: { application_id },
+    include: [
+      { model: User, attributes: ["id", "FirstName", "LastName"] },
       {
-        where:{
-          id:id
-        }
-      }
-    )
+        model: KCReply,
+        as: "kcReplies", // <--- must match the alias used in association
+        include: [{ model: User, attributes: ["id", "FirstName", "LastName"] }],
+      },
+    ],
+    order: [["createdAt", "ASC"]],
+  });
   
-    return result
-  };
-  
-  
-  const updateOneFromDB = async (id, payload) => {
 
-    const {twelvethStartDate, twelvethEndDate, twelvethBoard, twelvethInstitution, twelvethLocation, 
-      tenthStartDate, tenthEndDate, tenthBoard, tenthInstitution, tenthLocation} = payload;
-
-    const data = {
-      twelvethStartDate: twelvethStartDate === "" ? undefined : twelvethStartDate,
-      twelvethEndDate: twelvethEndDate === "" ? undefined : twelvethEndDate,
-      twelvethEndDate: twelvethEndDate === "" ? undefined : twelvethEndDate,
-      twelvethBoard: twelvethBoard === "" ? undefined : twelvethBoard,
-      twelvethInstitution: twelvethInstitution === "" ? undefined : twelvethInstitution,
-      twelvethLocation: twelvethLocation === "" ? undefined : twelvethLocation,
-      tenthStartDate: tenthStartDate === "" ? undefined : tenthStartDate,
-      tenthEndDate: tenthEndDate === "" ? undefined : tenthEndDate,
-      tenthBoard: tenthBoard === "" ? undefined : tenthBoard,
-      tenthInstitution: tenthInstitution === "" ? undefined : tenthInstitution,
-      tenthLocation: tenthLocation === "" ? undefined : tenthLocation,
-    };
-
-    console.log("academic", data)
-    
-    const result = await Academic.update(data,{
-      where:{
-        user_id:id
-      }
-    })
-  
-  
-    return result
-  
-  };
-
-
-const AcademicService = {
-  getAllFromDB,
-  insertIntoDB,
-  deleteIdFromDB,
-  updateOneFromDB,
-  getDataById,
+  return result;
 };
 
-module.exports = AcademicService;
+
+// Placeholder in case getAllFromDB is used elsewhere
+const getAllFromDB = async () => {
+  return await KCComment.findAll();
+};
+
+const KCCommentService = {
+  insertIntoDB,
+  getDataById,
+  getAllFromDB
+};
+
+module.exports = KCCommentService;
