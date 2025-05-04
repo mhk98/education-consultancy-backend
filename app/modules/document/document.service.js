@@ -55,7 +55,7 @@ const getAllFromDB = async () => {
   const updateOneFromDB = async (id, payload) => {
 
     const {tenthMarksheet, tenthCertificate, twelveMarksheet, twelveCertificate, passport, essay, instructionLetter} = payload;
-
+console.log(payload)
     const data = {
       tenthMarksheet: tenthMarksheet && tenthMarksheet[0].path,
       tenthCertificate: tenthCertificate && tenthCertificate[0].path,

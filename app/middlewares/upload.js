@@ -92,6 +92,12 @@ const uploadSingle = multer({
   fileFilter,
 }).single("image"); // Use "file" as the field name for PDF uploads
 
+const uploadPdf = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  fileFilter,
+}).single("file"); // Use "file" as the field name for PDF uploads
+
 
 const seventhUpload = multer({
   storage: storage,
@@ -116,5 +122,6 @@ const uploadMultiple = multer({
 module.exports = {
   uploadSingle,
   uploadMultiple,
-  seventhUpload
+  seventhUpload,
+  uploadPdf
 };

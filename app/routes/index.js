@@ -9,6 +9,7 @@ const StudentCommentRoutes = require('../modules/studentComment/studentComment.r
 const StudentReplyRoutes = require('../modules/studentReply/studentReply.routes');
 const KCCommentRoutes = require('../modules/kcComment/kcComment.routes');
 const KCReplyRoutes = require('../modules/kcReply/kcReply.routes');
+const AdditionalDocumentRoutes = require('../modules/additionalDocument/additionalDocument.routes');
 
 
 
@@ -64,6 +65,10 @@ const moduleRoutes = [
   {
     path: "/kcReply",
     route: KCReplyRoutes
+  },
+  {
+    path: "/additionalDocument",
+    route: AdditionalDocumentRoutes
   },
   
   

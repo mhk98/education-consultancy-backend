@@ -90,6 +90,8 @@ db.studentComment = require("../app/modules/studentComment/studentComment.model"
 db.studentReply = require("../app/modules/studentReply/studentReply.model")(db.sequelize, DataTypes);
 db.kcComment = require("../app/modules/kcComment/kcComment.model")(db.sequelize, DataTypes);
 db.kcReply = require("../app/modules/kcReply/kcReply.model")(db.sequelize, DataTypes);
+db.document = require("../app/modules/document/document.model")(db.sequelize, DataTypes);
+db.additionalDocument = require("../app/modules/additionalDocument/additionalDocument.model")(db.sequelize, DataTypes);
 
 // ✅ StudentComment - StudentReply association (WITH correct alias)
 db.studentComment.hasMany(db.studentReply, {
@@ -120,6 +122,9 @@ db.application.belongsTo(db.user, { foreignKey: "user_id" });
 
 db.user.hasMany(db.document, { foreignKey: "user_id" });
 db.document.belongsTo(db.user, { foreignKey: "user_id" });
+
+db.user.hasMany(db.additionalDocument, { foreignKey: "user_id" });
+db.additionalDocument.belongsTo(db.user, { foreignKey: "user_id" });
 
 db.user.hasMany(db.academic, { foreignKey: "user_id" });
 db.academic.belongsTo(db.user, { foreignKey: "user_id" });
