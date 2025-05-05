@@ -3,11 +3,23 @@ const paginationHelpers = require("../../../helpers/paginationHelper");
 const db = require("../../../models");
 const ApiError = require("../../../error/ApiError");
 const Application = db.application;
+const User = db.user;
 
 
 const insertIntoDB = async (data) => {
 
-  const result = await Application.create(data);
+  const {year, intake, university, program, priority, country, status, assignee, user_id} = data;
+
+  const userInfo = await User.findOne({
+    id:user_id
+  })
+
+  const info = {
+    year, intake, university, program, priority, country, user_id, FirstName:userInfo.FirstName,
+    LastName:userInfo.LastName, assignee, status
+  }
+
+  const result = await Application.create(info);
 
   console.log('Application', result)
   return result
@@ -48,17 +60,36 @@ const getAllDataById = async (id) => {
   
   
   const updateOneFromDB = async (id, payload) => {
-   
-    const result = await Application.update(payload,{
-      where:{
-        id:id
+    const { year, intake, university, program, priority, country, status, assignee, user_id } = payload;
+  
+    const userInfo = await User.findOne({
+      where: { id: user_id }
+    });
+  
+    const info = {
+      year: year === "" ? undefined : year,
+      intake: intake === "" ? undefined : intake,
+      university: university === "" ? undefined : university,
+      program: program === "" ? undefined : program,
+      priority: priority === "" ? undefined : priority,
+      country: country === "" ? undefined : country,
+      user_id: user_id === "" ? undefined : user_id,
+      FirstName: userInfo?.FirstName === "" ? undefined : userInfo?.FirstName,
+      LastName: userInfo?.LastName === "" ? undefined : userInfo?.LastName,
+      assignee: assignee === "" ? undefined : assignee,
+      status: status === "" ? undefined : status,
+    };
+  
+    const result = await Application.update(info, {
+      where: {
+        id: id,
+        user_id: user_id
       }
-    })
+    });
   
-  
-    return result
-  
+    return result;
   };
+  
 
 
 const ApplicationService = {

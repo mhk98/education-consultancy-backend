@@ -9,7 +9,19 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey:true,
                 allowNull:false
             },
+            FirstName: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            LastName: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
             year: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            acknowledge: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
@@ -25,15 +37,21 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            program: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
             priority: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
             country: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: true,
+                defaultValue: 'Application submitted' // ← your default value here
+              },
+              
+            assignee: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
