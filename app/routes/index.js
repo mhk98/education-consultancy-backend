@@ -10,6 +10,11 @@ const StudentReplyRoutes = require('../modules/studentReply/studentReply.routes'
 const KCCommentRoutes = require('../modules/kcComment/kcComment.routes');
 const KCReplyRoutes = require('../modules/kcReply/kcReply.routes');
 const AdditionalDocumentRoutes = require('../modules/additionalDocument/additionalDocument.routes');
+const ProgramYearRoutes = require('../modules/programYear/programYear.routes');
+const ProgramCountryRoutes = require('../modules/programCountry/programCountry.routes');
+const ProgramIntakeRoutes = require('../modules/programIntake/programIntake.routes');
+const ProgramNameRoutes = require('../modules/programName/programName.routes');
+const ProgramUniversityRoutes = require('../modules/programUniversity/programUniversity.routes');
 
 
 
@@ -69,6 +74,28 @@ const moduleRoutes = [
   {
     path: "/additionalDocument",
     route: AdditionalDocumentRoutes
+  },
+
+
+  {
+    path: "/programYear",
+    route: ProgramYearRoutes
+  },
+  {
+    path: "/programCountry",
+    route: ProgramCountryRoutes
+  },
+  {
+    path: "/programIntake",
+    route: ProgramIntakeRoutes
+  },
+  {
+    path: "/programName",
+    route: ProgramNameRoutes
+  },
+  {
+    path: "/programUniversity",
+    route: ProgramUniversityRoutes
   },
   
   

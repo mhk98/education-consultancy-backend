@@ -92,6 +92,11 @@ db.kcComment = require("../app/modules/kcComment/kcComment.model")(db.sequelize,
 db.kcReply = require("../app/modules/kcReply/kcReply.model")(db.sequelize, DataTypes);
 db.document = require("../app/modules/document/document.model")(db.sequelize, DataTypes);
 db.additionalDocument = require("../app/modules/additionalDocument/additionalDocument.model")(db.sequelize, DataTypes);
+db.programYear = require("../app/modules/programYear/programYear.model")(db.sequelize, DataTypes);
+db.programCountry = require("../app/modules/programCountry/programCountry.model")(db.sequelize, DataTypes);
+db.programIntake = require("../app/modules/programIntake/programIntake.model")(db.sequelize, DataTypes);
+db.programName = require("../app/modules/programName/programName.model")(db.sequelize, DataTypes);
+db.programUniversity = require("../app/modules/programUniversity/programUniversity.model")(db.sequelize, DataTypes);
 
 // ✅ StudentComment - StudentReply association (WITH correct alias)
 db.studentComment.hasMany(db.studentReply, {
@@ -157,7 +162,7 @@ db.kcComment.belongsTo(db.application, { foreignKey: "application_id" });
 
 // ✅ Sync the database
 db.sequelize
-  .sync({ force: false }) // don't use `force: true` in production
+  .sync({ force: true }) // don't use `force: true` in production
   .then(() => {
     console.log("Connection re-synced successfully");
   })
