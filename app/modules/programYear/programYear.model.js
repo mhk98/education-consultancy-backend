@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             },
 
             year: {
-                type: DataTypes.DATEONLY,
+                type: DataTypes.INTEGER,
                 allowNull:true
             },
 

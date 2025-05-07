@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             },
 
             country: {
-                type: DataTypes.DATEONLY,
+                type: DataTypes.STRING,
                 allowNull:true
             },
 

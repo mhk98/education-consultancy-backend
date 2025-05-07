@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull:false
             },
 
-            year: {
-                type: DataTypes.DATEONLY,
+            intake: {
+                type: DataTypes.STRING,
                 allowNull:true
             },
 

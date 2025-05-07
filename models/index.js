@@ -162,7 +162,7 @@ db.kcComment.belongsTo(db.application, { foreignKey: "application_id" });
 
 // ✅ Sync the database
 db.sequelize
-  .sync({ force: true }) // don't use `force: true` in production
+  .sync({ force: false }) // don't use `force: true` in production
   .then(() => {
     console.log("Connection re-synced successfully");
   })
