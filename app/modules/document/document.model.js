@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true
             },
+            bachelorCertificate: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            bachelorTranscript: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
             passport: {
                 type: DataTypes.STRING,
                 allowNull:true

@@ -48,18 +48,19 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false, 
       },
-      // Assigned : {
-      //   type: DataTypes.STRING,
-      //   allowNull: true, 
-      // },
-      // CreatedOn : {
-      //   type: DataTypes.STRING,
-      //   allowNull: true, 
-      // },
-      // Status : {
-      //   type: DataTypes.STRING,
-      //   allowNull: true, 
-      // },
+      
+      Assigned : {
+        type: DataTypes.STRING,
+        allowNull: true, 
+      },
+      CreatedOn : {
+        type: DataTypes.STRING,
+        allowNull: true, 
+      },
+      Status : {
+        type: DataTypes.STRING,
+        allowNull: true, 
+      },
     
       Role: {
         type: DataTypes.ENUM("student", "employee", "admin", "superAdmin"),

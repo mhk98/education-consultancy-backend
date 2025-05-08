@@ -111,6 +111,8 @@ const seventhUpload = multer({
   { name: "passport", maxCount: 1 },
   { name: "essay", maxCount: 1 },
   { name: "instructionLetter", maxCount: 1 },
+  { name: "bachelorCertificate", maxCount: 1 },
+  { name: "bachelorTranscript", maxCount: 1 },
 ]);
 
 const uploadMultiple = multer({

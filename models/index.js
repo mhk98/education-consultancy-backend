@@ -170,4 +170,4 @@ db.sequelize
     console.error("Error on re-sync:", err);
   });
 
-module.exports = db
+module.exports = db;

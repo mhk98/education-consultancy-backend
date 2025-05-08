@@ -10,14 +10,35 @@ const insertIntoDB = async (data) => {
 
   const {year, intake, university, program, priority, country, status, assignee, user_id} = data;
 
+  const existingCount = await Application.count({
+    where: { user_id: user_id }
+  });
+
+  const seq = existingCount + 1;
+  const padded = seq.toString().padStart(2, '0');
+  const acknowledgeCode = `ECA${padded}`;
+
   const userInfo = await User.findOne({
     id:user_id
   })
 
   const info = {
     year, intake, university, program, priority, country, user_id, FirstName:userInfo.FirstName,
-    LastName:userInfo.LastName, assignee, status
+    LastName:userInfo.LastName, assignee, status, acknowledge: acknowledgeCode
   }
+
+  const userDataUpdate = {
+    Assigned: assignee,
+    CreatedOn: `${userInfo.FirstName} ${userInfo.LastName}`,
+    Status: status,
+  };
+  
+
+  await User.update(userDataUpdate, {
+    where: {
+      id: user_id
+    }
+  })
 
   const result = await Application.create(info);
 
@@ -79,6 +100,18 @@ const getAllDataById = async (id) => {
       assignee: assignee === "" ? undefined : assignee,
       status: status === "" ? undefined : status,
     };
+
+    const userDataUpdate = {
+      Assigned: assignee,
+      Status: status,
+    };
+    
+  
+    await User.update(userDataUpdate, {
+      where: {
+        id: user_id
+      }
+    })
   
     const result = await Application.update(info, {
       where: {
