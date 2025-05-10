@@ -5,20 +5,33 @@ const PendingPaymentService = require("./payment.service");
 const ApiError = require("../../../error/ApiError");
 
 
-const insertIntoDB = catchAsync(async (req, res) => {
+// const insertIntoDB = catchAsync(async (req, res) => {
 
-  const {amount, paymentReason, refundCondition, paymentStatus, user_id  } = req.body;
+//   const {amount, paymentReason, refundCondition, paymentStatus, user_id  } = req.body;
 
-  // const filePath = req.file.path.replace(/\\/g, "/");
+//   // const filePath = req.file.path.replace(/\\/g, "/");
  
 
-  const data = {
-    amount, paymentReason, refundCondition, paymentStatus, user_id,
-   file: req.file ? req.file.path : undefined
-  }
+//   const data = {
+//     amount, paymentReason, refundCondition, paymentStatus, user_id,
+//    file: req.file ? req.file.path : undefined
+//   }
 
-  const result = await PendingPaymentService.insertIntoDB(data);
+//   const result = await PendingPaymentService.insertIntoDB(data);
  
+//   sendResponse(res, {
+//       statusCode: 200,
+//       success: true,
+//       message: "Application successfully created!!",
+//       data: result
+//   })
+// })
+
+
+const initPayment = catchAsync(async (req, res) => {
+
+ const result = await PaymentService.initPayment()
+
   sendResponse(res, {
       statusCode: 200,
       success: true,

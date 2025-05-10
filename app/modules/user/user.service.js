@@ -4,7 +4,6 @@ const paginationHelpers = require("../../../helpers/paginationHelper");
 const db = require("../../../models");
 const User = db.user;
 const Profile = db.profile;
-const Application = db.application;
 const Document = db.document;
 const Academic = db.academic;
 const Tests = db.tests;
