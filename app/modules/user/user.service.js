@@ -135,17 +135,10 @@ const deleteUserFromDB = async (id) => {
 
 
 const updateUserFromDB = async (id, payload) => {
- const {FirstName, LastName, Address, Phone, Email} = payload;
- const data ={
-  FirstName, LastName, Address, Phone, Email
- }
-
- const saleDataUpdate = await Sale.update(data,{
-  where:{userId: id }
- })
+ 
   const result = await User.update(payload,{
     where:{
-      Id:id
+      id:id
     }
   })
 

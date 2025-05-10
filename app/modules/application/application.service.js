@@ -29,7 +29,6 @@ const insertIntoDB = async (data) => {
 
   const userDataUpdate = {
     Assigned: assignee,
-    CreatedOn: `${userInfo.FirstName} ${userInfo.LastName}`,
     Status: status,
   };
   

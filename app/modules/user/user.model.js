@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false, 
       },
-      
+
       Assigned : {
         type: DataTypes.STRING,
         allowNull: true, 
@@ -61,10 +61,16 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         type: DataTypes.STRING,
         allowNull: true, 
       },
+
+      Profile : {
+        type: DataTypes.STRING,
+        allowNull: true, 
+        defaultValue: "active",
+      },
     
       Role: {
         type: DataTypes.ENUM("student", "employee", "admin", "superAdmin"),
-        allowNull: false,
+        allowNull: true,
         defaultValue: "student",
       }      
       

@@ -29,18 +29,15 @@ const login = catchAsync(async (req, res) => {
 })
 
 const register = catchAsync(async (req, res) => {
-  const { FirstName, LastName, Email, Password, Role, Phone } = req.body;
-
-  const validRoles = ["student", "employee", "admin", "superAdmin"];
-  const roleToInsert = validRoles.includes(Role) ? Role : 'student';
+  const { FirstName, LastName, Email, Password, Phone, First_Name, Last_Name } = req.body;
 
   const data = {
     FirstName,
     LastName,
     Email,
     Password,
-    Role: roleToInsert,
     Phone,
+    CreatedOn: `${First_Name} ${Last_Name}`,
     image: req.file ? req.file.path : undefined,
   };
 
@@ -88,10 +85,17 @@ const getUserById = catchAsync(async (req, res) => {
 const updateUserFromDB = catchAsync(async (req, res) => {
 const {id} = req.params;
 console.log("userId", id);
-const {FirstName, LastName, Email, Phone, Address, role, Country, City, PostalCode  } = req.body;
+const {FirstName, LastName, Email, Password, Phone, Role, Profile, CreatedOn  } = req.body;
 console.log(req.body);
 const data = {
-  FirstName, LastName, Email, Phone, Address, role, Country, City, PostalCode,
+  FirstName: FirstName === "" ? undefined : FirstName,
+  LastName: LastName === "" ? undefined : LastName,
+  Email: Email === "" ? undefined : Email,
+  Password: Password === "" ? undefined : Password,
+  Phone: Phone === "" ? undefined : Phone,
+  Role: Role === "" ? undefined : Role,
+  Profile: Profile === "" ? undefined : Profile,
+  CreatedOn: CreatedOn === "" ? undefined : CreatedOn,
   image: req.file === undefined ? undefined : req.file.path,
 }
 

@@ -15,6 +15,9 @@ const ProgramCountryRoutes = require('../modules/programCountry/programCountry.r
 const ProgramIntakeRoutes = require('../modules/programIntake/programIntake.routes');
 const ProgramNameRoutes = require('../modules/programName/programName.routes');
 const ProgramUniversityRoutes = require('../modules/programUniversity/programUniversity.routes');
+const RequestPaymentRoutes = require('../modules/requestPayment/requestPayment.routes');
+const PendingPaymentRoutes = require('../modules/pendingPayment/pendingPayment.routes');
+const PreviousPaymentRoutes = require('../modules/previousPayment/previousPayment.routes');
 
 
 
@@ -96,6 +99,18 @@ const moduleRoutes = [
   {
     path: "/programUniversity",
     route: ProgramUniversityRoutes
+  },
+  {
+    path: "/requestPayment",
+    route: RequestPaymentRoutes
+  },
+  {
+    path: "/pendingPayment",
+    route: PendingPaymentRoutes
+  },
+  {
+    path: "/previousPayment",
+    route: PreviousPaymentRoutes
   },
   
   
