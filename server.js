@@ -13,7 +13,7 @@ const app = express();
 
 // Apply CORS Middleware
 app.use(cors({
-  origin: ['http://localhost:3000/', 'http://localhost:3000/'],
+  origin: ['https://education-consultancy-backend.onrender.com/', 'https://education-consultancy-backend.onrender.com/'],
   credentials: true
 }));
 
