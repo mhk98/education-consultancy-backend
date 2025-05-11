@@ -13,7 +13,7 @@ const app = express();
 
 // Apply CORS Middleware
 app.use(cors({
-  origin: ['https://demo.eaconsultancy.info/', 'https://demo.eaconsultancy.info/'],
+  origin: ['http://localhost:3000/', 'http://localhost:3000/'],
   credentials: true
 }));
 

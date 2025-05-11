@@ -19,6 +19,8 @@ const RequestPaymentRoutes = require('../modules/requestPayment/requestPayment.r
 const PendingPaymentRoutes = require('../modules/pendingPayment/pendingPayment.routes');
 const PreviousPaymentRoutes = require('../modules/previousPayment/previousPayment.routes');
 const PaymentRoutes = require('../modules/payment/payment.routes');
+const CashInRoutes = require('../modules/cashIn/cashIn.routes');
+const CashOutRoutes = require('../modules/cashOut/cashOut.routes');
 
 
 
@@ -116,6 +118,14 @@ const moduleRoutes = [
   {
     path: "/payment",
     route: PaymentRoutes
+  },
+  {
+    path: "/cashIn",
+    route: CashInRoutes
+  },
+  {
+    path: "/cashOut",
+    route: CashOutRoutes
   },
   
   

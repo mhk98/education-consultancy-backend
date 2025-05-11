@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const RequestPayment = sequelize.define(
-        "RequestPayment",
+    const CashIn = sequelize.define(
+        "CashIn",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -13,22 +13,21 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            paymentReason: {
+            purpose: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            refundCondition: {
+            comment: {
                 type: DataTypes.STRING,
                 allowNull:true
             },             
             status: {
                 type: DataTypes.STRING,
-                allowNull:true,
-                defaultValue: "PENDING",
-
+                allowNull:true
             },             
+                       
         }
     )
 
-    return RequestPayment;
+    return CashIn;
 }

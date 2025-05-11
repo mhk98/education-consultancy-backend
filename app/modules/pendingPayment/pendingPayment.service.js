@@ -31,17 +31,72 @@ const initPayment = async (data) => {
     cus_phone: user.Phone,
   });
 
-  await PendingPayment.create({
-    amount: data.amount,
-    transactionId: tran_id,
-    user_id: data.user_id,
-    status: "PENDING",
-    paymentStatus: data.paymentStatus,
-    file: data.file || null,
-  });
+  if(data.paymentStatus === "Offline"){
+    await PendingPayment.create({
+      amount: data.amount,
+      transactionId: tran_id,
+      user_id: data.user_id,
+      status: "PAID",
+      employee: data.employee,
+      paymentStatus: data.paymentStatus,
+      file: data.file || null,
+    });
+  } else {
+    await PendingPayment.create({
+      amount: data.amount,
+      transactionId: tran_id,
+      user_id: data.user_id,
+      status: "PENDING",
+      paymentStatus: data.paymentStatus,
+    });
+  }
+
+  
 
   return session?.GatewayPageURL;
 };
+
+// const webhook = async (payload) => {
+//   if (!payload || payload.status !== 'VALID') {
+//     return { message: 'Invalid or failed payment' };
+//   }
+
+//   const result = await sslService.validate(payload);
+//   if (result?.status !== 'VALID') {
+//     return { message: 'Payment validation failed' };
+//   }
+
+//   const { tran_id } = result;
+
+// const paymentStatus =  await PendingPayment.update(
+//     {
+//       status: "PAID",
+//       paymentGatewayData: JSON.stringify(payload),
+//     },
+//     {
+//       where: { transactionId: tran_id },
+//     }
+//   );
+
+
+//   if(paymentStatus.status === "PAID") {
+//     await RequestPayment.update(
+//       {
+//       status: "PAID"
+//     },
+//     {
+//       where: {
+//         id:requrestPayment_id,
+//         user_id:
+//       }
+//     }
+//   )
+//   }
+
+//   return { message: "Payment Success" };
+// };
+
+
 
 const webhook = async (payload) => {
   if (!payload || payload.status !== 'VALID') {
@@ -55,9 +110,19 @@ const webhook = async (payload) => {
 
   const { tran_id } = result;
 
+  // Find the pending payment record
+  const pendingPayment = await PendingPayment.findOne({
+    where: { transactionId: tran_id },
+  });
+
+  if (!pendingPayment) {
+    return { message: 'Transaction not found in system' };
+  }
+
+  // Update the pending payment to PAID
   await PendingPayment.update(
     {
-      status: "PAID",
+      status: 'PAID',
       paymentGatewayData: JSON.stringify(payload),
     },
     {
@@ -65,10 +130,37 @@ const webhook = async (payload) => {
     }
   );
 
-  return { message: "Payment Success" };
+  // If related to RequestPayment, update that too
+  // if (pendingPayment.requestPayment_id && pendingPayment.user_id) {
+  //   await RequestPayment.update(
+  //     { status: 'PAID' },
+  //     {
+  //       where: {
+  //         id: pendingPayment.requestPayment_id,
+  //         user_id: pendingPayment.user_id,
+  //       },
+  //     }
+  //   );
+  // }
+
+  return { message: 'Payment Success' };
 };
+
+
+const getAllDataById = async (id) => {
+  
+    const result = await PendingPayment.findAll({
+      where: {
+        user_id:id
+      }
+    })
+  
+    return result
+  };
 
 module.exports = {
   initPayment,
   webhook,
+  getAllDataById
+
 };

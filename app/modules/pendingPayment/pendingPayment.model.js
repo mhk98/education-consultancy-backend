@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true,
             },  
+            employee : {
+                type: DataTypes.STRING,
+                allowNull:true,
+            },  
               paymentGatewayData: {
                 type: DataTypes.JSON,
                 allowNull: true,

@@ -100,6 +100,8 @@ db.programUniversity = require("../app/modules/programUniversity/programUniversi
 db.requestPayment = require("../app/modules/requestPayment/requestPayment.model")(db.sequelize, DataTypes);
 db.pendingPayment = require("../app/modules/pendingPayment/pendingPayment.model")(db.sequelize, DataTypes);
 db.payment = require("../app/modules/payment/payment.model")(db.sequelize, DataTypes);
+db.cashIn = require("../app/modules/cashIn/cashIn.model")(db.sequelize, DataTypes);
+db.cashOut = require("../app/modules/cashOut/cashOut.model")(db.sequelize, DataTypes);
 
 // ✅ StudentComment - StudentReply association (WITH correct alias)
 db.studentComment.hasMany(db.studentReply, {
@@ -162,6 +164,12 @@ db.kcComment.belongsTo(db.application, { foreignKey: "application_id" });
 
 db.user.hasMany(db.pendingPayment, { foreignKey: "user_id" });
 db.pendingPayment.belongsTo(db.user, { foreignKey: "user_id" });
+
+// db.requestPayment.hasMany(db.pendingPayment, { foreignKey: "requestPayment_id" });
+// db.pendingPayment.belongsTo(db.requestPayment, { foreignKey: "requestPayment_id" });
+
+db.user.hasMany(db.requestPayment, { foreignKey: "user_id" });
+db.requestPayment.belongsTo(db.user, { foreignKey: "user_id" });
 
 // ❌ Removed redundant duplicate `studentComment` - `studentReply` mapping
 // (already defined above)

@@ -1,14 +1,14 @@
 const { Op, where } = require("sequelize"); // Ensure Op is imported
 const paginationHelpers = require("../../../helpers/paginationHelper");
 const db = require("../../../models");
-const RequestPayment = db.requestPayment;
+const CashIn = db.cashIn;
 
 
 
 const insertIntoDB = async (data) => {
 
   console.log("data", data)
-  const result = await RequestPayment.create(data);
+  const result = await CashIn.create(data);
 
   return result
 };
@@ -17,13 +17,13 @@ const insertIntoDB = async (data) => {
 
 const getAllFromDB = async () => {
   
-    const result = await RequestPayment.findAll()
+    const result = await CashIn.findAll()
   
     return result
   };
 const getAllDataById = async (id) => {
   
-    const result = await RequestPayment.findAll({
+    const result = await CashIn.findAll({
       where: {
         user_id:id
       }
@@ -35,7 +35,7 @@ const getAllDataById = async (id) => {
 
   const deleteIdFromDB = async (id) => {
   
-    const result = await RequestPayment.destroy(
+    const result = await CashIn.destroy(
       {
         where:{
           id:id
@@ -62,7 +62,7 @@ const getAllDataById = async (id) => {
 
   }
   
-    const result = await RequestPayment.update(data, {
+    const result = await CashIn.update(data, {
       where: {
         id: id,
       }
@@ -73,7 +73,7 @@ const getAllDataById = async (id) => {
   
 
 
-const RequestPaymentService = {
+const CashInService = {
   getAllFromDB,
   insertIntoDB,
   deleteIdFromDB,
@@ -81,4 +81,4 @@ const RequestPaymentService = {
   getAllDataById
 };
 
-module.exports = RequestPaymentService;
+module.exports = CashInService;
