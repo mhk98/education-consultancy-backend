@@ -1,100 +1,74 @@
-const { Op, where } = require("sequelize"); // Ensure Op is imported
-const paginationHelpers = require("../../../helpers/paginationHelper");
 const db = require("../../../models");
+const ApiError = require("../../../error/ApiError");
+const sslService = require("../ssl/ssl.service");
+const { where } = require("sequelize");
+
 const PendingPayment = db.pendingPayment;
+const User = db.user;
+const Profile = db.profile;
 
+const generateTransactionId = () => `TXN-${Date.now()}`;
 
+const initPayment = async (data) => {
+  const user = await User.findOne({
+    where: {
+      id:data.user_id
+    }
+  });
+  if (!user) throw new ApiError(404, "User not found");
 
-// const insertIntoDB = async (data) => {
+  const profile = await Profile.findOne({ where: { user_id: data.user_id } });
+  if (!profile) throw new ApiError(404, "User profile not found");
 
-//   const {  amount, paymentReason, refundCondition, paymentStatus, user_id, filePath} = data;
+  const tran_id = generateTransactionId();
 
-//   const user = await User.findOne({
-//     where: {
-//       id: user_id
-//     }
-//   });
+  const session = await sslService.initPayment({
+    total_amount: data.amount,
+    tran_id,
+    cus_name: `${user.FirstName} ${user.LastName}`,
+    cus_email: user.Email,
+    cus_add1: profile.mailingAddress1,
+    cus_phone: user.Phone,
+  });
 
-//   if (!user) {
-//     throw new ApiError(404, `User with ID ${user_id} does not exist.`);
-    
-//   }
+  await PendingPayment.create({
+    amount: data.amount,
+    transactionId: tran_id,
+    user_id: data.user_id,
+    status: "PENDING",
+    paymentStatus: data.paymentStatus,
+    file: data.file || null,
+  });
 
-//   const info = {
-//     amount,
-//     paymentReason,
-//     refundCondition,
-//     paymentStatus,
-//     user_id:user.id,
-//     filePath,
-//   }
-
-//   const result = await PendingPayment.create(info);
-
-//   return result
-// };
-
-const insertIntoDB = async (data) => {
-
- 
-  const result = await PendingPayment.create(data);
-
-  return result
+  return session?.GatewayPageURL;
 };
 
+const webhook = async (payload) => {
+  if (!payload || payload.status !== 'VALID') {
+    return { message: 'Invalid or failed payment' };
+  }
 
+  const result = await sslService.validate(payload);
+  if (result?.status !== 'VALID') {
+    return { message: 'Payment validation failed' };
+  }
 
-const getAllFromDB = async () => {
-  
-    const result = await PendingPayment.findAll()
-  
-    return result
-  };
-const getAllDataById = async (id) => {
-  
-    const result = await PendingPayment.findAll({
-      where: {
-        user_id:id
-      }
-    })
-  
-    return result
-  };
+  const { tran_id } = result;
 
+  await PendingPayment.update(
+    {
+      status: "PAID",
+      paymentGatewayData: JSON.stringify(payload),
+    },
+    {
+      where: { transactionId: tran_id },
+    }
+  );
 
-  const deleteIdFromDB = async (id) => {
-  
-    const result = await PendingPayment.destroy(
-      {
-        where:{
-          id:id
-        }
-      }
-    )
-  
-    return result
-  };
-  
-  
-  const updateOneFromDB = async (id, payload) => {
-  
-    const result = await PendingPayment.update(payload, {
-      where: {
-        id: id,
-      }
-    });
-  
-    return result;
-  };
-  
-
-
-const PendingPaymentService = {
-  getAllFromDB,
-  insertIntoDB,
-  deleteIdFromDB,
-  updateOneFromDB,
-  getAllDataById
+  return { message: "Payment Success" };
 };
 
-module.exports = PendingPaymentService;
+module.exports = {
+  initPayment,
+  webhook,
+};

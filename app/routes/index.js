@@ -18,6 +18,7 @@ const ProgramUniversityRoutes = require('../modules/programUniversity/programUni
 const RequestPaymentRoutes = require('../modules/requestPayment/requestPayment.routes');
 const PendingPaymentRoutes = require('../modules/pendingPayment/pendingPayment.routes');
 const PreviousPaymentRoutes = require('../modules/previousPayment/previousPayment.routes');
+const PaymentRoutes = require('../modules/payment/payment.routes');
 
 
 
@@ -111,6 +112,10 @@ const moduleRoutes = [
   {
     path: "/previousPayment",
     route: PreviousPaymentRoutes
+  },
+  {
+    path: "/payment",
+    route: PaymentRoutes
   },
   
   

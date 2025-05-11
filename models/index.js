@@ -99,6 +99,7 @@ db.programName = require("../app/modules/programName/programName.model")(db.sequ
 db.programUniversity = require("../app/modules/programUniversity/programUniversity.model")(db.sequelize, DataTypes);
 db.requestPayment = require("../app/modules/requestPayment/requestPayment.model")(db.sequelize, DataTypes);
 db.pendingPayment = require("../app/modules/pendingPayment/pendingPayment.model")(db.sequelize, DataTypes);
+db.payment = require("../app/modules/payment/payment.model")(db.sequelize, DataTypes);
 
 // ✅ StudentComment - StudentReply association (WITH correct alias)
 db.studentComment.hasMany(db.studentReply, {

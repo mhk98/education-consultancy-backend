@@ -8,27 +8,32 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement:true,
                 primaryKey:true,
                 allowNull:false
-            },
-            amount: {
-                type: DataTypes.INTEGER,
-                allowNull:true
-            },
-            paymentReason: {
+            },                
+            transactionId: {
                 type: DataTypes.STRING,
-                allowNull:true
-            },
-            refundCondition: {
+                allowNull: false,
+                unique: true,
+              },
+              amount: {
+                type: DataTypes.FLOAT,
+                allowNull: false,
+              },
+              status: {
+                type: DataTypes.ENUM("PENDING", "PAID", "FAILED"),
+                defaultValue: "PENDING",
+              },
+              file: {
                 type: DataTypes.STRING,
-                allowNull:true
-            },       
-            paymentStatus : {
+                allowNull: true,
+              },
+              paymentStatus : {
                 type: DataTypes.STRING,
-                allowNull:true
-            },       
-            file : {
-                type: DataTypes.STRING,
-                allowNull:true
-            },       
+                allowNull:true,
+            },  
+              paymentGatewayData: {
+                type: DataTypes.JSON,
+                allowNull: true,
+              },
         }
     )
 

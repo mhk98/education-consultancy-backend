@@ -1,7 +1,7 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
 const pick = require("../../../shared/pick");
-const PendingPaymentService = require("./payment.service");
+const PaymentService = require("./payment.service");
 const ApiError = require("../../../error/ApiError");
 
 
@@ -17,7 +17,7 @@ const ApiError = require("../../../error/ApiError");
 //    file: req.file ? req.file.path : undefined
 //   }
 
-//   const result = await PendingPaymentService.insertIntoDB(data);
+//   const result = await PaymentService.insertIntoDB(data);
  
 //   sendResponse(res, {
 //       statusCode: 200,
@@ -30,12 +30,24 @@ const ApiError = require("../../../error/ApiError");
 
 const initPayment = catchAsync(async (req, res) => {
 
- const result = await PaymentService.initPayment()
+ const result = await PaymentService.initPayment(req.body)
 
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Application successfully created!!",
+      message: "Payment init successfully!!",
+      data: result
+  })
+})
+
+const webhook = catchAsync(async (req, res) => {
+
+ const result = await PaymentService.webhook(req.body)
+
+  sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Payment webhook successfully!!",
       data: result
   })
 })
@@ -43,7 +55,7 @@ const initPayment = catchAsync(async (req, res) => {
 
 const getAllFromDB = catchAsync(async (req, res) => {
 
-  const result = await PendingPaymentService.getAllFromDB();
+  const result = await PaymentService.getAllFromDB();
   sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -56,7 +68,7 @@ const getAllDataById = catchAsync(async (req, res) => {
 
   const {id} = req.params;
   
-  const result = await PendingPaymentService.getAllDataById(id);
+  const result = await PaymentService.getAllDataById(id);
   sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -68,7 +80,7 @@ const getAllDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-      const result = await PendingPaymentService.updateOneFromDB(id, req.body);
+      const result = await PaymentService.updateOneFromDB(id, req.body);
       sendResponse(res, {
           statusCode: 200,
           success: true,
@@ -82,7 +94,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
         const {id} = req.params;
         console.log('deleteId',id)
     
-      const result = await PendingPaymentService.deleteIdFromDB(id);
+      const result = await PaymentService.deleteIdFromDB(id);
       sendResponse(res, {
           statusCode: 200,
           success: true,
@@ -91,12 +103,14 @@ const updateOneFromDB = catchAsync(async (req, res) => {
       })
     })
 
- const PendingPaymentController = {
+ const PaymentController = {
   getAllFromDB,
   getAllDataById,
-  insertIntoDB,
+
   deleteIdFromDB,
-  updateOneFromDB
+  updateOneFromDB,
+  initPayment,
+  webhook
 }
 
-module.exports = PendingPaymentController;
+module.exports = PaymentController;

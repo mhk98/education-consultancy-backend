@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const PendingPayment = sequelize.define(
-        "PendingPayment",
+    const Payment = sequelize.define(
+        "Payment",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -32,5 +32,5 @@ module.exports = (sequelize, DataTypes) => {
         }
     )
 
-    return PendingPayment;
+    return Payment;
 }
