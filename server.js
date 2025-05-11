@@ -13,7 +13,7 @@ const app = express();
 
 // Apply CORS Middleware
 app.use(cors({
-  origin: ['https://education-consultancy-backend.onrender.com/', 'https://education-consultancy-backend.onrender.com/'],
+  origin: ['https://demo.eaconsultancy.info/', 'https://demo.eaconsultancy.info/'],
   credentials: true
 }));
 

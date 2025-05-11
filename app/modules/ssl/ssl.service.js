@@ -9,9 +9,9 @@ const initPayment = async (payload) => {
       total_amount: payload.total_amount,
       currency: 'BDT',
       tran_id: payload.tran_id,
-      success_url: 'https://education-consultancy-backend.onrender.com/payments?status=success',
-      fail_url: 'https://education-consultancy-backend.onrender.com/payments?status=error',
-      cancel_url: 'https://education-consultancy-backend.onrender.com/payments?status=cancel',
+      success_url: 'https://demo.eaconsultancy.info/payments?status=success',
+      fail_url: 'https://demo.eaconsultancy.info/payments?status=error',
+      cancel_url: 'https://demo.eaconsultancy.info/payments?status=cancel',
       ipn_url: 'https://education-consultancy-backend.onrender.com/api/v1/pendingPayment/webhook', // backend IPN/webhook
       shipping_method: 'NO',
       product_name: 'Semester Payment',

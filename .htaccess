@@ -1,4 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ https://education-consultancy-backend.onrender.com/$1 [P,L]
+RewriteRule ^(.*)$ https://demo.eaconsultancy.info/$1 [P,L]
