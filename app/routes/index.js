@@ -21,6 +21,7 @@ const PreviousPaymentRoutes = require('../modules/previousPayment/previousPaymen
 const PaymentRoutes = require('../modules/payment/payment.routes');
 const CashInRoutes = require('../modules/cashIn/cashIn.routes');
 const CashOutRoutes = require('../modules/cashOut/cashOut.routes');
+const EnquiriesRoutes = require('../modules/enquiries/enquiries.routes');
 
 
 
@@ -126,6 +127,10 @@ const moduleRoutes = [
   {
     path: "/cashOut",
     route: CashOutRoutes
+  },
+  {
+    path: "/enquiries",
+    route: EnquiriesRoutes
   },
   
   
