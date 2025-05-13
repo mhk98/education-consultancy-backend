@@ -7,39 +7,7 @@ const User = db.user;
 
 
 const insertIntoDB = async (data) => {
-
-  const {year, intake, university, program, priority, country, status, assignee, user_id} = data;
-
-  const existingCount = await Enquiries.count({
-    where: { user_id: user_id }
-  });
-
-  const seq = existingCount + 1;
-  const padded = seq.toString().padStart(2, '0');
-  const acknowledgeCode = `ECA${padded}`;
-
-  const userInfo = await User.findOne({
-    id:user_id
-  })
-
-  const info = {
-    year, intake, university, program, priority, country, user_id, FirstName:userInfo.FirstName,
-    LastName:userInfo.LastName, assignee, status, acknowledge: acknowledgeCode
-  }
-
-  const userDataUpdate = {
-    Assigned: assignee,
-    Status: status,
-  };
-  
-
-  await User.update(userDataUpdate, {
-    where: {
-      id: user_id
-    }
-  })
-
-  const result = await Enquiries.create(info);
+  const result = await Enquiries.create(data);
 
   console.log('Enquiries', result)
   return result

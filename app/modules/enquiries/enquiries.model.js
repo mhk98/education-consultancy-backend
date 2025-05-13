@@ -9,55 +9,51 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey:true,
                 allowNull:false
             },
-            FirstName: {
+            firstName: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            LastName: {
+            lastName: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            year: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            acknowledge: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            intake: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            university: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            program: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            priority: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            country: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            status: {
-                type: DataTypes.STRING,
-                allowNull: true,
-                defaultValue: 'Application submitted' // ← your default value here
-              },
               
-            assignee: {
+            studyArea: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                defaultValue: "[]",
+                get() {
+                  try {
+                    return JSON.parse(this.getDataValue("studyArea")) || [];
+                  } catch (error) {
+                    return [];
+                  }
+                },
+                set(value) {
+                  this.setDataValue("studyArea", JSON.stringify(value));
+                },
+              },
+
+              studyLevel: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                defaultValue: "[]",
+                get() {
+                  try {
+                    return JSON.parse(this.getDataValue("studyLevel")) || [];
+                  } catch (error) {
+                    return [];
+                  }
+                },
+                set(value) {
+                  this.setDataValue("studyLevel", JSON.stringify(value));
+                },
+              },           
+            file: {
                 type: DataTypes.STRING,
-                allowNull:true
-            },
-         
-     
-  
+                allowNull:true,
+            },             
+                       
         }
     )
 

@@ -5,9 +5,17 @@ const EnquiriesService = require("./enquiries.service");
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
+  const { firstName, lastName, studyArea, studyLevel } = req.body;
 
+  const data = {
+    firstName, lastName, studyArea, studyLevel,
+    file: req.file ? req.file.path : undefined,
 
-  const result = await EnquiriesService.insertIntoDB(req.body);
+  };
+
+  console.log("enquiries", data)
+
+  const result = await EnquiriesService.insertIntoDB(data);
  
   sendResponse(res, {
       statusCode: 200,
