@@ -103,6 +103,7 @@ db.payment = require("../app/modules/payment/payment.model")(db.sequelize, DataT
 db.cashIn = require("../app/modules/cashIn/cashIn.model")(db.sequelize, DataTypes);
 db.cashOut = require("../app/modules/cashOut/cashOut.model")(db.sequelize, DataTypes);
 db.enquiries = require("../app/modules/enquiries/enquiries.model")(db.sequelize, DataTypes);
+db.commission = require("../app/modules/commission/commission.model")(db.sequelize, DataTypes);
 
 // ✅ StudentComment - StudentReply association (WITH correct alias)
 db.studentComment.hasMany(db.studentReply, {

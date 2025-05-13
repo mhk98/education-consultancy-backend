@@ -10,28 +10,25 @@ const Profile = db.profile;
 const generateTransactionId = () => `TXN-${Date.now()}`;
 
 const initPayment = async (data) => {
-  const user = await User.findOne({
-    where: {
-      id:data.user_id
-    }
-  });
-  if (!user) throw new ApiError(404, "User not found");
+  // const user = await User.findOne({
+  //   where: {
+  //     id:data.user_id
+  //   }
+  // });
+  // if (!user) throw new ApiError(404, "User not found");
 
-  const profile = await Profile.findOne({ where: { user_id: data.user_id } });
-  if (!profile) throw new ApiError(404, "User profile not found");
+  // const profile = await Profile.findOne({ where: { user_id: data.user_id } });
+  // if (!profile) throw new ApiError(404, "User profile not found");
 
   const tran_id = generateTransactionId();
 
   const session = await sslService.initPayment({
     total_amount: data.amount,
     tran_id,
-    cus_name: `${user.FirstName} ${user.LastName}`,
-    cus_email: user.Email,
-    cus_add1: profile.mailingAddress1,
-    cus_phone: user.Phone,
   });
 
-  if(data.paymentStatus === "Offline"){
+  if (data.paymentStatus === "Offline") {
+    // Case 1: Offline payment
     await PendingPayment.create({
       amount: data.amount,
       transactionId: tran_id,
@@ -41,7 +38,19 @@ const initPayment = async (data) => {
       paymentStatus: data.paymentStatus,
       file: data.file || null,
     });
+  
+  } else if (data.paymentStatus === "Cash-In" || data.paymentStatus === "Cash-Out") {
+    // Case 2: Cash In or Out
+    await PendingPayment.create({
+      amount: data.amount,
+      transactionId: data.transactionId,
+      employee: data.employee,
+      paymentStatus: data.paymentStatus,
+      purpose: data.purpose,
+    });
+  
   } else {
+    // Case 3: Any other payment status
     await PendingPayment.create({
       amount: data.amount,
       transactionId: tran_id,
@@ -50,6 +59,7 @@ const initPayment = async (data) => {
       paymentStatus: data.paymentStatus,
     });
   }
+  
 
   
 
@@ -158,9 +168,17 @@ const getAllDataById = async (id) => {
     return result
   };
 
+const getAllData = async () => {
+  
+    const result = await PendingPayment.findAll()
+  
+    return result
+  };
+
 module.exports = {
   initPayment,
   webhook,
-  getAllDataById
+  getAllDataById,
+  getAllData
 
 };

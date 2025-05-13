@@ -3,13 +3,15 @@ const sendResponse = require("../../../shared/sendResponse");
 const PendingPaymentService = require("./pendingPayment.service");
 
 const initPayment = catchAsync(async (req, res) => {
-  const { amount, paymentStatus, employee, user_id } = req.body;
+  const { amount, paymentStatus, employee, transactionId, purpose, user_id } = req.body;
 
   const data = {
     amount,
     paymentStatus,
     user_id,
     employee,
+    transactionId,
+    purpose,
     file: req.file ? req.file.path : undefined,
   };
 
@@ -47,8 +49,20 @@ const getAllDataById = catchAsync(async (req, res) => {
   })
 })
 
+const getAllData = catchAsync(async (req, res) => {
+
+  const result = await PendingPaymentService.getAllData();
+  sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Application data fetch!!",
+      data: result
+  })
+})
+
 module.exports = {
   initPayment,
   webhook,
-  getAllDataById
+  getAllDataById,
+  getAllData
 };

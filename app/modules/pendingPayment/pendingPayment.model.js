@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true,
             },  
+            purpose : {
+                type: DataTypes.STRING,
+                allowNull:true,
+            },  
               paymentGatewayData: {
                 type: DataTypes.JSON,
                 allowNull: true,

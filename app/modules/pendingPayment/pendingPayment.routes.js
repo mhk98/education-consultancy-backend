@@ -5,6 +5,7 @@ const router = require("express").Router();
 router.post("/init", uploadPdf, PendingPaymentController.initPayment);
 router.post("/webhook", PendingPaymentController.webhook);
 router.get("/:id", PendingPaymentController.getAllDataById);
+router.get("/", PendingPaymentController.getAllData);
 
 
 const PendingPaymentRoutes = router;
