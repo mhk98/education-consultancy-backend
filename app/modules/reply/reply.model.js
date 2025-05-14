@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const KCReply = sequelize.define("KCReply", {
+    const Reply = sequelize.define("Reply", {
         id: {
         type: DataTypes.INTEGER(10),
         primaryKey: true,
@@ -12,6 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   
-    return KCReply;
+    return Reply;
   };
   

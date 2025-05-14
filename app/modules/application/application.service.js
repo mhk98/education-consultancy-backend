@@ -6,45 +6,104 @@ const Application = db.application;
 const User = db.user;
 
 
+// const insertIntoDB = async (data) => {
+
+//   const {year, intake, university, program, priority, country, status, assignee, user_id} = data;
+
+//   const existingCount = await Application.count({
+//     where: { user_id: user_id }
+//   });
+
+//   const seq = existingCount + 1;
+//   const padded = seq.toString().padStart(2, '0');
+//   const acknowledgeCode = `ECA${padded}`;
+
+//   const userInfo = await User.findOne({
+//     id:user_id
+//   })
+
+//   const info = {
+//     year, intake, university, program, priority, country, user_id, FirstName:userInfo.FirstName,
+//     LastName:userInfo.LastName, assignee, status, acknowledge: acknowledgeCode
+//   }
+
+//   const userDataUpdate = {
+//     Assigned: assignee,
+//     Status: status,
+//   };
+  
+
+//   await User.update(userDataUpdate, {
+//     where: {
+//       id: user_id
+//     }
+//   })
+
+//   const result = await Application.create(info);
+
+//   console.log('Application', result)
+//   return result
+// };
+
+
 const insertIntoDB = async (data) => {
+  const {
+    year, intake, university, program,
+    priority, country, status, assignee, user_id
+  } = data;
 
-  const {year, intake, university, program, priority, country, status, assignee, user_id} = data;
+  // ✅ Find user
+  const userInfo = await User.findOne({
+    where: { id: user_id }
+  });
 
+  if (!userInfo) {
+    throw new Error("User not found.");
+  }
+
+  // ✅ Count existing applications for the user
   const existingCount = await Application.count({
     where: { user_id: user_id }
   });
 
-  const seq = existingCount + 1;
-  const padded = seq.toString().padStart(2, '0');
-  const acknowledgeCode = `ECA${padded}`;
+  const applicationSeq = existingCount + 1;
 
-  const userInfo = await User.findOne({
-    id:user_id
-  })
+  // ✅ Generate application acknowledge code: EA001/1, EA001/2 etc.
+  const acknowledgeCode = `${userInfo.id}/${applicationSeq}`;
 
   const info = {
-    year, intake, university, program, priority, country, user_id, FirstName:userInfo.FirstName,
-    LastName:userInfo.LastName, assignee, status, acknowledge: acknowledgeCode
-  }
+    year,
+    intake,
+    university,
+    program,
+    priority,
+    country,
+    user_id,
+    FirstName: userInfo.FirstName,
+    LastName: userInfo.LastName,
+    assignee,
+    status,
+    acknowledge: acknowledgeCode
+  };
 
+  // ✅ Update user's assigned person and status
   const userDataUpdate = {
     Assigned: assignee,
     Status: status,
   };
-  
 
   await User.update(userDataUpdate, {
     where: {
       id: user_id
     }
-  })
+  });
 
+  // ✅ Create application
   const result = await Application.create(info);
 
-  console.log('Application', result)
-  return result
+  console.log("Application Created:", result);
+  return result;
 };
-
 
 
 const getAllFromDB = async () => {

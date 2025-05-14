@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const KCComment = sequelize.define("KCComment", {
+    const Comment = sequelize.define("Comment", {
         id: {
           type: DataTypes.INTEGER(10),
           primaryKey: true,
@@ -18,6 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       
 
   
-    return KCComment;
+    return Comment;
   };
   

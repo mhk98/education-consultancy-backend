@@ -2,14 +2,14 @@ const { Op, where } = require("sequelize"); // Ensure Op is imported
 const paginationHelpers = require("../../../helpers/paginationHelper");
 const db = require("../../../models");
 const ApiError = require("../../../error/ApiError");
-const KCReply = db.kcReply;
+const Reply = db.reply;
 
 
 const insertIntoDB = async (data) => {
 
-  const result = await KCReply.create(data);
+  const result = await Reply.create(data);
 
-  console.log('KCReply', result)
+  console.log('Reply', result)
   return result
 };
 
@@ -17,7 +17,7 @@ const insertIntoDB = async (data) => {
 
 const getAllFromDB = async () => {
   
-    const result = await KCReply.findAll()
+    const result = await Reply.findAll()
   
     return result
   };
@@ -26,7 +26,7 @@ const getAllFromDB = async () => {
   const getDataById = async (id) => {
   
     console.log("dataid", id)
-    const result = await KCReply.findOne(
+    const result = await Reply.findOne(
      {
       where:{
         user_id:id
@@ -40,7 +40,7 @@ const getAllFromDB = async () => {
 
   const deleteIdFromDB = async (id) => {
   
-    const result = await KCReply.destroy(
+    const result = await Reply.destroy(
       {
         where:{
           id:id
@@ -56,7 +56,7 @@ const getAllFromDB = async () => {
 
     console.log("academic", data)
     
-    const result = await KCReply.update(data,{
+    const result = await Reply.update(data,{
       where:{
         user_id:id
       }
@@ -68,7 +68,7 @@ const getAllFromDB = async () => {
   };
 
 
-const KCReplyService = {
+const ReplyService = {
   getAllFromDB,
   insertIntoDB,
   deleteIdFromDB,
@@ -76,4 +76,4 @@ const KCReplyService = {
   getDataById,
 };
 
-module.exports = KCReplyService;
+module.exports = ReplyService;

@@ -23,6 +23,8 @@ const CashInRoutes = require('../modules/cashIn/cashIn.routes');
 const CashOutRoutes = require('../modules/cashOut/cashOut.routes');
 const EnquiriesRoutes = require('../modules/enquiries/enquiries.routes');
 const CommissionRoutes = require('../modules/commission/commission.routes');
+const CommentRoutes = require('../modules/comment/comment.routes');
+const ReplyRoutes = require('../modules/reply/reply.routes');
 
 
 
@@ -136,6 +138,16 @@ const moduleRoutes = [
   {
     path: "/commission",
     route: CommissionRoutes
+  },
+  
+  {
+    path: "/comment",
+    route: CommentRoutes
+  },
+  
+  {
+    path: "/reply",
+    route: ReplyRoutes
   },
   
   

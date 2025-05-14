@@ -124,7 +124,7 @@ const deleteUserFromDB = async (id) => {
   const result = await User.destroy(
     {
       where:{
-        Id:id
+        id:id
       }
     }
   )

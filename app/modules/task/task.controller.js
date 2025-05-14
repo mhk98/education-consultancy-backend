@@ -1,19 +1,18 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
-const pick = require("../../../shared/pick");
-const ReplyService = require("./reply.service");
-
+const CashInService = require("./task.service");
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
 
 
-  const result = await ReplyService.insertIntoDB(req.body);
+  const result = await CashInService.insertIntoDB(req.body);
+  console.log("result", result)
  
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Reply successfully created!!",
+      message: "Application successfully created!!",
       data: result
   })
 })
@@ -21,24 +20,24 @@ const insertIntoDB = catchAsync(async (req, res) => {
 
 const getAllFromDB = catchAsync(async (req, res) => {
 
-  const result = await ReplyService.getAllFromDB();
+  const result = await CashInService.getAllFromDB();
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Reply data fetch!!",
+      message: "Application data fetch!!",
       data: result
   })
 })
 
-const getDataById = catchAsync(async (req, res) => {
+const getAllDataById = catchAsync(async (req, res) => {
 
   const {id} = req.params;
   
-  const result = await ReplyService.getDataById(id);
+  const result = await CashInService.getAllDataById(id);
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Reply data fetch!!",
+      message: "Application data fetch!!",
       data: result
   })
 })
@@ -46,11 +45,11 @@ const getDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-      const result = await ReplyService.updateOneFromDB(id, req.body);
+      const result = await CashInService.updateOneFromDB(id, req.body);
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Reply update successfully!!",
+          message: "Application update successfully!!",
           data: result
       })
     })
@@ -60,21 +59,21 @@ const updateOneFromDB = catchAsync(async (req, res) => {
         const {id} = req.params;
         console.log('deleteId',id)
     
-      const result = await ReplyService.deleteIdFromDB(id);
+      const result = await CashInService.deleteIdFromDB(id);
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Reply delete successfully!!",
+          message: "Application delete successfully!!",
           data: result
       })
     })
 
- const ReplyController = {
+ const CashInController = {
   getAllFromDB,
+  getAllDataById,
   insertIntoDB,
   deleteIdFromDB,
-  updateOneFromDB,
-  getDataById
+  updateOneFromDB
 }
 
-module.exports = ReplyController;
+module.exports = CashInController;

@@ -1,9 +1,9 @@
-const KCCommentController = require("./kcComment.controller");
+const CommentController = require("./comment.controller");
 const router = require("express").Router();
 
-router.post("/create",  KCCommentController.insertIntoDB);
-router.get("/:application_id", KCCommentController.getDataById);
+router.post("/create",  CommentController.insertIntoDB);
+router.get("/:enquiry_id", CommentController.getDataById);
 
 
-const KCCommentRoutes = router;
-module.exports =  KCCommentRoutes ;
+const CommentRoutes = router;
+module.exports =  CommentRoutes ;

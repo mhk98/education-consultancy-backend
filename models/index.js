@@ -104,6 +104,17 @@ db.cashIn = require("../app/modules/cashIn/cashIn.model")(db.sequelize, DataType
 db.cashOut = require("../app/modules/cashOut/cashOut.model")(db.sequelize, DataTypes);
 db.enquiries = require("../app/modules/enquiries/enquiries.model")(db.sequelize, DataTypes);
 db.commission = require("../app/modules/commission/commission.model")(db.sequelize, DataTypes);
+db.comment = require("../app/modules/comment/comment.model")(db.sequelize, DataTypes);
+db.reply = require("../app/modules/reply/reply.model")(db.sequelize, DataTypes);
+
+db.comment.hasMany(db.reply, {
+  foreignKey: "comment_id",
+  as: "replies", // Must match the alias used in your include
+});
+db.reply.belongsTo(db.comment, {
+  foreignKey: "comment_id",
+  as: "comment",
+});
 
 // ✅ StudentComment - StudentReply association (WITH correct alias)
 db.studentComment.hasMany(db.studentReply, {
@@ -163,6 +174,16 @@ db.kcReply.belongsTo(db.user, { foreignKey: "user_id" });
 // 🔁 Application associations
 db.application.hasMany(db.kcComment, { foreignKey: "application_id" });
 db.kcComment.belongsTo(db.application, { foreignKey: "application_id" });
+
+db.user.hasMany(db.comment, { foreignKey: "user_id" });
+db.comment.belongsTo(db.user, { foreignKey: "user_id" });
+
+db.user.hasMany(db.reply, { foreignKey: "user_id" });
+db.reply.belongsTo(db.user, { foreignKey: "user_id" });
+
+// 🔁 Application associations
+db.enquiries.hasMany(db.comment, { foreignKey: "enquiry_id" });
+db.comment.belongsTo(db.enquiries, { foreignKey: "enquiry_id" });
 
 db.user.hasMany(db.pendingPayment, { foreignKey: "user_id" });
 db.pendingPayment.belongsTo(db.user, { foreignKey: "user_id" });
