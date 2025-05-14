@@ -1,10 +1,10 @@
 const { ENUM_USER_ROLE } = require("../../enums/user");
 const auth = require("../../middlewares/auth");
-const { uploadPdf } = require("../../middlewares/upload");
+const { uploadMultiple } = require("../../middlewares/upload");
 const EnquiriesController = require("./enquiries.controller");
 const router = require("express").Router();
 
-router.post("/create", uploadPdf, EnquiriesController.insertIntoDB);
+router.post("/create", uploadMultiple, EnquiriesController.insertIntoDB);
 router.get("/", EnquiriesController.getAllFromDB);
 router.get("/:id", EnquiriesController.getAllDataById);
 router.delete("/:id", EnquiriesController.deleteIdFromDB);

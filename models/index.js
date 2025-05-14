@@ -173,6 +173,7 @@ db.pendingPayment.belongsTo(db.user, { foreignKey: "user_id" });
 db.user.hasMany(db.requestPayment, { foreignKey: "user_id" });
 db.requestPayment.belongsTo(db.user, { foreignKey: "user_id" });
 
+
 // ❌ Removed redundant duplicate `studentComment` - `studentReply` mapping
 // (already defined above)
 

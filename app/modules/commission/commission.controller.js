@@ -5,11 +5,13 @@ const CommissionService = require("./commission.service");
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
-  const { amount, branch, user_id } = req.body;
+  const { amount, branch, user_id, status, purpose } = req.body;
 
   const data = {
     amount,
     user_id,
+    status, 
+    purpose,
     branch
   };
 
@@ -52,13 +54,14 @@ const getAllDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-    const { amount, branch, user_id, status } = req.body;
+    const { amount, branch, user_id, status, purpose } = req.body;
 
   const data = {
     amount: amount === "" ? undefined : amount,
     user_id: user_id === "" ? undefined : user_id,
     branch: branch === "" ? undefined : branch,
     status: status === "" ? undefined : status,
+    purpose: purpose === "" ? undefined : purpose,
     file: req.file ? req.file.path : undefined,
 
   };

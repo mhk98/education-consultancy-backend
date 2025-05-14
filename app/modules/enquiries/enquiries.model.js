@@ -17,7 +17,31 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-              
+            destination: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            educationCountry: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            educationLevel: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            assignedTo: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            additionalInfo: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },             
+            status: {
+                type: DataTypes.STRING,
+                allowNull:true,
+                defaultValue:"active"
+            },             
             studyArea: {
                 type: DataTypes.TEXT,
                 allowNull: false,
@@ -49,10 +73,22 @@ module.exports = (sequelize, DataTypes) => {
                   this.setDataValue("studyLevel", JSON.stringify(value));
                 },
               },           
-            file: {
-                type: DataTypes.STRING,
-                allowNull:true,
-            },             
+              files: {
+                type: DataTypes.TEXT,
+                allowNull: true,
+                defaultValue: "[]",
+                get() {
+                  try {
+                    return JSON.parse(this.getDataValue("files")) || [];
+                  } catch (error) {
+                    return [];
+                  }
+                },
+                set(value) {
+                  this.setDataValue("files", JSON.stringify(value));
+                },
+              },
+                           
                        
         }
     )

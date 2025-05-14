@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull:true
             },
+            purpose: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
             branch: {
                 type: DataTypes.STRING,
                 allowNull:true
