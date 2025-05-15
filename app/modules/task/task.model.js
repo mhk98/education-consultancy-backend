@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const CashIn = sequelize.define(
-        "CashIn",
+    const Task = sequelize.define(
+        "Task",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -9,25 +9,22 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey:true,
                 allowNull:false
             },
-            amount: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            purpose: {
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            comment: {
+            description: {
                 type: DataTypes.STRING,
                 allowNull:true
             },             
             status: {
                 type: DataTypes.STRING,
-                allowNull:true
+                allowNull:true,
+                defaultValue:"PENDING"
             },             
                        
         }
     )
 
-    return CashIn;
+    return Task;
 }

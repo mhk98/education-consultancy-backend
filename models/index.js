@@ -106,6 +106,7 @@ db.enquiries = require("../app/modules/enquiries/enquiries.model")(db.sequelize,
 db.commission = require("../app/modules/commission/commission.model")(db.sequelize, DataTypes);
 db.comment = require("../app/modules/comment/comment.model")(db.sequelize, DataTypes);
 db.reply = require("../app/modules/reply/reply.model")(db.sequelize, DataTypes);
+db.task = require("../app/modules/task/task.model")(db.sequelize, DataTypes);
 
 db.comment.hasMany(db.reply, {
   foreignKey: "comment_id",
@@ -193,6 +194,9 @@ db.pendingPayment.belongsTo(db.user, { foreignKey: "user_id" });
 
 db.user.hasMany(db.requestPayment, { foreignKey: "user_id" });
 db.requestPayment.belongsTo(db.user, { foreignKey: "user_id" });
+
+db.user.hasMany(db.task, { foreignKey: "user_id" });
+db.task.belongsTo(db.user, { foreignKey: "user_id" });
 
 
 // ❌ Removed redundant duplicate `studentComment` - `studentReply` mapping

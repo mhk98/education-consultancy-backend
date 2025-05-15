@@ -1,12 +1,12 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
-const CashInService = require("./task.service");
+const TaskService = require("./task.service");
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
 
 
-  const result = await CashInService.insertIntoDB(req.body);
+  const result = await TaskService.insertIntoDB(req.body);
   console.log("result", result)
  
   sendResponse(res, {
@@ -20,7 +20,7 @@ const insertIntoDB = catchAsync(async (req, res) => {
 
 const getAllFromDB = catchAsync(async (req, res) => {
 
-  const result = await CashInService.getAllFromDB();
+  const result = await TaskService.getAllFromDB();
   sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -33,7 +33,7 @@ const getAllDataById = catchAsync(async (req, res) => {
 
   const {id} = req.params;
   
-  const result = await CashInService.getAllDataById(id);
+  const result = await TaskService.getAllDataById(id);
   sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -45,7 +45,7 @@ const getAllDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-      const result = await CashInService.updateOneFromDB(id, req.body);
+      const result = await TaskService.updateOneFromDB(id, req.body);
       sendResponse(res, {
           statusCode: 200,
           success: true,
@@ -59,7 +59,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
         const {id} = req.params;
         console.log('deleteId',id)
     
-      const result = await CashInService.deleteIdFromDB(id);
+      const result = await TaskService.deleteIdFromDB(id);
       sendResponse(res, {
           statusCode: 200,
           success: true,
@@ -68,7 +68,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
       })
     })
 
- const CashInController = {
+ const TaskController = {
   getAllFromDB,
   getAllDataById,
   insertIntoDB,
@@ -76,4 +76,4 @@ const updateOneFromDB = catchAsync(async (req, res) => {
   updateOneFromDB
 }
 
-module.exports = CashInController;
+module.exports = TaskController;

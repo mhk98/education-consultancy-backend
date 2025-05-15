@@ -1,14 +1,14 @@
 const { Op, where } = require("sequelize"); // Ensure Op is imported
 const paginationHelpers = require("../../../helpers/paginationHelper");
 const db = require("../../../models");
-const CashIn = db.cashIn;
+const Task = db.task;
 
 
 
 const insertIntoDB = async (data) => {
 
   console.log("data", data)
-  const result = await CashIn.create(data);
+  const result = await Task.create(data);
 
   return result
 };
@@ -17,13 +17,13 @@ const insertIntoDB = async (data) => {
 
 const getAllFromDB = async () => {
   
-    const result = await CashIn.findAll()
+    const result = await Task.findAll()
   
     return result
   };
 const getAllDataById = async (id) => {
   
-    const result = await CashIn.findAll({
+    const result = await Task.findAll({
       where: {
         user_id:id
       }
@@ -35,7 +35,7 @@ const getAllDataById = async (id) => {
 
   const deleteIdFromDB = async (id) => {
   
-    const result = await CashIn.destroy(
+    const result = await Task.destroy(
       {
         where:{
           id:id
@@ -50,19 +50,18 @@ const getAllDataById = async (id) => {
   const updateOneFromDB = async (id, payload) => {
 
   
-  const {amount, paymentReason, refundCondition, status, user_id} = payload;
+  const {title, description, status, user_id, } = payload;
 
 
   const data = {
-    amount: amount === "" ? undefined : amount,
-    paymentReason: paymentReason === "" ? undefined : paymentReason,
-    refundCondition: refundCondition === "" ? undefined : refundCondition,
+    title: title === "" ? undefined : title,
+    description: description === "" ? undefined : description,
     status: status === "" ? undefined : status,
     user_id: user_id === "" ? undefined : user_id,
 
   }
   
-    const result = await CashIn.update(data, {
+    const result = await Task.update(data, {
       where: {
         id: id,
       }
@@ -73,7 +72,7 @@ const getAllDataById = async (id) => {
   
 
 
-const CashInService = {
+const TaskService = {
   getAllFromDB,
   insertIntoDB,
   deleteIdFromDB,
@@ -81,4 +80,4 @@ const CashInService = {
   getAllDataById
 };
 
-module.exports = CashInService;
+module.exports = TaskService;

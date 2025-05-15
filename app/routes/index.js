@@ -25,6 +25,7 @@ const EnquiriesRoutes = require('../modules/enquiries/enquiries.routes');
 const CommissionRoutes = require('../modules/commission/commission.routes');
 const CommentRoutes = require('../modules/comment/comment.routes');
 const ReplyRoutes = require('../modules/reply/reply.routes');
+const TaskRoutes = require('../modules/task/task.routes');
 
 
 
@@ -148,6 +149,11 @@ const moduleRoutes = [
   {
     path: "/reply",
     route: ReplyRoutes
+  },
+
+  {
+    path: "/task",
+    route: TaskRoutes
   },
   
   
