@@ -198,6 +198,9 @@ db.requestPayment.belongsTo(db.user, { foreignKey: "user_id" });
 db.user.hasMany(db.task, { foreignKey: "user_id" });
 db.task.belongsTo(db.user, { foreignKey: "user_id" });
 
+db.user.hasMany(db.commission, { foreignKey: "user_id" });
+db.commission.belongsTo(db.user, { foreignKey: "user_id" });
+
 
 // ❌ Removed redundant duplicate `studentComment` - `studentReply` mapping
 // (already defined above)
