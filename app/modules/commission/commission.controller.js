@@ -5,12 +5,11 @@ const CommissionService = require("./commission.service");
 
 
 const insertIntoDB = catchAsync(async (req, res) => {
-  const { amount, branch, user_id, status, purpose } = req.body;
+  const { amount, branch, user_id, purpose } = req.body;
 
   const data = {
     amount,
     user_id,
-    status, 
     purpose,
     branch
   };
