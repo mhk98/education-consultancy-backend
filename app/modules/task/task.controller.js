@@ -1,18 +1,39 @@
 const catchAsync = require("../../../shared/catchAsync");
 const sendResponse = require("../../../shared/sendResponse");
 const TaskService = require("./task.service");
-
+const db = require("../../../models");
+const ApiError = require("../../../error/ApiError");
+const User = db.user;
 
 const insertIntoDB = catchAsync(async (req, res) => {
 
+  const {assignor, task,  description, comment, user_id} = req.body;
 
-  const result = await TaskService.insertIntoDB(req.body);
+  const user = await User.findOne({
+    where: {
+      id:user_id
+    }
+  })
+
+  if(!user){
+    throw new ApiError(400, "User not found")
+  }
+
+  const data = {
+  
+    assignor, task,  description, comment, assignedTo: `${user.FirstName} ${user.LastName}`,
+    user_id,
+    file: req.file ? req.file.path : undefined,
+
+  }
+
+  const result = await TaskService.insertIntoDB(data);
   console.log("result", result)
  
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Application successfully created!!",
+      message: "Task successfully created!!",
       data: result
   })
 })
@@ -24,20 +45,20 @@ const getAllFromDB = catchAsync(async (req, res) => {
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Application data fetch!!",
+      message: "Task data fetch!!",
       data: result
   })
 })
 
 const getAllDataById = catchAsync(async (req, res) => {
 
-  const {id} = req.params;
+  const {user_id} = req.params;
   
-  const result = await TaskService.getAllDataById(id);
+  const result = await TaskService.getAllDataById(user_id);
   sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Application data fetch!!",
+      message: "Task data fetch!!",
       data: result
   })
 })
@@ -45,11 +66,27 @@ const getAllDataById = catchAsync(async (req, res) => {
 
 const updateOneFromDB = catchAsync(async (req, res) => {
     const {id} = req.params;
-      const result = await TaskService.updateOneFromDB(id, req.body);
+
+      const {assignor, assignedTo, task, description, status, user_id, comment} = req.body;
+    
+    
+      const data = {
+        assignor: assignor === "" ? undefined : assignor,
+        assignedTo: assignedTo === "" ? undefined : assignedTo,
+        task: task === "" ? undefined : task,
+        description: description === "" ? undefined : description,
+        status: status === "" ? undefined : status,
+        comment: comment === "" ? undefined : comment,
+        user_id: user_id === "" ? undefined : user_id,
+        file: req.file ? req.file.path : undefined,
+    
+      }
+
+      const result = await TaskService.updateOneFromDB(id, data);
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Application update successfully!!",
+          message: "Task update successfully!!",
           data: result
       })
     })
@@ -63,7 +100,7 @@ const updateOneFromDB = catchAsync(async (req, res) => {
       sendResponse(res, {
           statusCode: 200,
           success: true,
-          message: "Application delete successfully!!",
+          message: "Task delete successfully!!",
           data: result
       })
     })

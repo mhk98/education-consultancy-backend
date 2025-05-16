@@ -65,6 +65,9 @@ const updateOneFromDB = catchAsync(async (req, res) => {
     file: req.file ? req.file.path : undefined,
 
   };
+
+  console.log("commission", req.body)
+  console.log("commissionId", id)
       const result = await CommissionService.updateOneFromDB(id, data);
       sendResponse(res, {
           statusCode: 200,

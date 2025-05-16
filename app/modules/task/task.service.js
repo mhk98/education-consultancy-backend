@@ -7,7 +7,6 @@ const Task = db.task;
 
 const insertIntoDB = async (data) => {
 
-  console.log("data", data)
   const result = await Task.create(data);
 
   return result
@@ -21,11 +20,11 @@ const getAllFromDB = async () => {
   
     return result
   };
-const getAllDataById = async (id) => {
+const getAllDataById = async (user_id) => {
   
     const result = await Task.findAll({
       where: {
-        user_id:id
+        user_id:user_id
       }
     })
   
@@ -47,19 +46,8 @@ const getAllDataById = async (id) => {
   };
   
   
-  const updateOneFromDB = async (id, payload) => {
+  const updateOneFromDB = async (id, data) => {
 
-  
-  const {title, description, status, user_id, } = payload;
-
-
-  const data = {
-    title: title === "" ? undefined : title,
-    description: description === "" ? undefined : description,
-    status: status === "" ? undefined : status,
-    user_id: user_id === "" ? undefined : user_id,
-
-  }
   
     const result = await Task.update(data, {
       where: {

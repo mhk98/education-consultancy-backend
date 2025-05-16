@@ -50,19 +50,8 @@ const getAllDataById = async (id) => {
   const updateOneFromDB = async (id, payload) => {
 
   
-  const {amount, paymentReason, refundCondition, status, user_id} = payload;
-
-
-  const data = {
-    amount: amount === "" ? undefined : amount,
-    paymentReason: paymentReason === "" ? undefined : paymentReason,
-    refundCondition: refundCondition === "" ? undefined : refundCondition,
-    status: status === "" ? undefined : status,
-    user_id: user_id === "" ? undefined : user_id,
-
-  }
   
-    const result = await Commission.update(data, {
+    const result = await Commission.update(payload, {
       where: {
         id: id,
       }

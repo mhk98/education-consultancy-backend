@@ -9,11 +9,23 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey:true,
                 allowNull:false
             },
-            title: {
+            assignor: {
                 type: DataTypes.STRING,
                 allowNull:true
             },
+            assignedTo: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            task: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },             
             description: {
+                type: DataTypes.TEXT,
+                allowNull:true
+            },             
+            file: {
                 type: DataTypes.STRING,
                 allowNull:true
             },             
@@ -21,7 +33,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true,
                 defaultValue:"PENDING"
-            },             
+            },  
+            comment: {
+                type: DataTypes.STRING,
+                allowNull:true
+            },            
                        
         }
     )
